@@ -36,7 +36,7 @@ Latest Builds
 * `HOT_src_1.0rc6.tar.gz
   <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc6.tar.gz>`_,
 
-  - Fixed up H9x multithreading problems.
+  - Fixed up Houdini 9x multithreading problems.
 
   - The mantra displacement issue was fixed by rebuilding the example
     hip file using Houdini 9x, something was lost in
