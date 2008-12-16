@@ -22,6 +22,7 @@ fftw-3.2/fftw3f.pc
 .sconsign.dblite
 *.texi
 *.out
+docs/_build
 
 syntax: regexp
 .*\#.*\#$
