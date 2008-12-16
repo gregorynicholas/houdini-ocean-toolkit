@@ -31,11 +31,34 @@ working across versions, but it's still not recommended.*
 Latest Builds
 ~~~~~~~~~~~~~
 
+1.0rc6
+
+* `HOT_src_1.0rc6.tar.gz
+  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc6.tar.gz>`_,
+
+  - Fixed up H9x multithreading problems.
+
+  - The mantra displacement issue was fixed by rebuilding the example
+    hip file using Houdini 9x, something was lost in
+    translation. Thankyou to Side Effect support for help on this one.
+
+  - Building should be straight forward for linux and osx,
+    win32 may need some finetuning. 
+
+  - The docs have been updated using the python sphinx package. They
+    are now served via the web and are included in the doc
+    subdirectory of the distribution.
+
+  - All 3rd party dependencies are included in the distribution.
+
+  - Linux and osx dependencies are now linked statically, meaning less
+    installation hassles.
+
 1.0rc4
 
 * `HOT_src_1.0rc4.tar.gz
   <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc4.tar.gz>`_,
-  src only now, though it has now been compiled on linux, win32, win64
+  src only now, though it has now been compiled on linux, win32
   and OSX. There is a problem with mantra displacement shading, see
   `this thread <http://forums.odforce.net/index.php?showtopic=8014>`_.
 
@@ -321,7 +344,9 @@ For more information about using the HDK see the `odforce wiki HDK page
 Linux
 ~~~~~
 
-The linux build is quite straight forward, building all the dependencies from source (included). Do the following in a terminal - ::
+The linux build is quite straight forward, building all the
+dependencies from source (included). To build, do the following in a
+terminal - ::
 
   cd <where you put the HOT source>/src/3rdparty
   ./build_linux.sh
@@ -337,7 +362,9 @@ Alternatively instead of compile_linux.sh you can - ::
 OSX
 ~~~
 
-The OSX build is quite straight forward, building all the dependencies from source (included). Do the following in a terminal - ::
+The OSX build is quite straight forward, building all the dependencies
+from source (included). You must have Apple's Xcode development
+package installed. To build, do the following in a terminal - ::
 
   cd <where you extracted the HOT source>/src/3rdparty
   ./build_osx.sh
