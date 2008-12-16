@@ -18,20 +18,15 @@ the `SIGGRAPH 2004 course notes
 <http://www.finelightvisualtechnology.com/pages/coursematerials.php/>`_. The
 dso's implement a SOP for displacing geometry and VEX functions
 functions for use in various Houdini contexts. The OTL contains a VOP
-that wraps the vex function.
-
-Support
--------
-
-Send any questions and feedback to the `Houdini Ocean Toolkit od[forum] <http://forums.odforce.net/index.php?showforum=57>`_.
+that wraps the vex function. For the sake of convenience SOP_Cleave is
+also included in the HOT distribution (with Stuart Ramsden's blessing).
 
 Download
 --------
 
-*Important: When installing a pre-built binary package you must use
-the right version of houdini, particularly for the SOP (the VEX has a
-better chance of working across versions, but it's still not
-recommended).*
+*Important note - when installing a pre-built binary package you must
+use the matching version of houdini. The VEX dso has a better chance of
+working across versions, but it's still not recommended.*
 
 Latest Builds
 ~~~~~~~~~~~~~
@@ -54,11 +49,26 @@ Latest Builds
 
 1.0rc2
 
-* win32 binary  - `HOT_9_0_782_1.0rc2_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_9_0_782_1.0rc2_win32.zip>`_
-* win32 binary  - `HOT_9_0_768_1.0rc2_win32.zip  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_9_0_768_1.0rc2_win32.zip>`_
-* source - `HOT_src_1.0rc2.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc2.zip>`_
+* win32 binary - `HOT_9_0_782_1.0rc2_win32.zip
+  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_9_0_782_1.0rc2_win32.zip>`_
+
+* win32 binary - `HOT_9_0_768_1.0rc2_win32.zip
+  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_9_0_768_1.0rc2_win32.zip>`_
+
+* source - `HOT_src_1.0rc2.zip
+  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc2.zip>`_
 
 
+Latest source from Bitbucket
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bitbucket is a `mercurial <http://www.selenic.com/mercurial/wiki/>`_
+project hosting site. You will need to have mercurial installed on
+your machine. Go to the `HOT page
+<http://www.bitbucket.org/eloop/hot/>`_ on Bitbucket. To get a copy of
+the distribution you simply ::
+
+    hg clone http://bitbucket.org/eloop/hot/
 
 Examples
 --------
@@ -113,8 +123,7 @@ SOP works. Note that the sop will calculate accurate normals if it is
 fed a geometry that has a normal attribute on points.
 
 .. image:: HOT_sop_parms.jpg
-
-SOP parameters
+   :align: center
 
 Parameters
 ~~~~~~~~~~
@@ -184,7 +193,6 @@ thats applied to a large ocean plane geometry.
 
 ::
 
-    #! -*- c++ -*-
     #pragma label    gridres "Ocean Resolution"
     #pragma range    gridres 3 11
 
@@ -251,13 +259,9 @@ thats applied to a large ocean plane geometry.
         vector Po = wo_space(P);
 
         ocean_eval(Po.x,Po.z,time,height_scale,
-
                    do_chop,chop_amount,disp,
-
                    do_norm,norm,
-
                    do_eigenvalues,jminus,jplus,eminus,eplus,
-
                    gridres,
                    ocean_size,
                    windspeed,
@@ -267,7 +271,6 @@ thats applied to a large ocean plane geometry.
                    align,
                    ocean_depth,
                    seed);
-
 
         if (do_chop)
         {
@@ -284,11 +287,13 @@ thats applied to a large ocean plane geometry.
 
     }
 
-
 VEX function ocean_eval_ij()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Mostly used for debugging. Can be used from the COP context to save out the various quantities as images. i and j simply index into the arrays that are interpolated in ocean_eval(). The image dimension is 2^gridres.
+Mostly used for debugging. Can be used from the COP context to save
+out the various quantities as images. i and j simply index into the
+arrays that are interpolated in ocean_eval(). The image dimension is
+2^gridres.
 
 VOP shaders for basic ocean surfaces
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -298,111 +303,104 @@ See the OTL directory for examples of VOP usage.
 Building from source
 --------------------
 
-Sorry that it couldn't be easier but I like to leverage existing toolkits when possible. Blitz++ is a very fast n-dimensional array library. FFTW is the "fastest fourier transform in the west". The Ocean.h file is where most of the math is done and is independant of the hdk, so it can be used outside of houdini.
+Before building the HOT from source you should be able to successfully
+compile and install Houdini Development Kit (HDK)
+code. ``$HT/toolkit/samples/SOP/SOP_Star.C`` is a good one to try
+first. So before going any further try this - ::
 
-Windows
-~~~~~~~
+  cd <a temporary directory somewhere>
+  cp $HT/toolkit/samples/SOP/SOP_Star.C .
+  hcustom SOP_Star.C
 
-I'm assuming you're using cygwin under windows. I'm also assuming you have VS.NET 2003 installed along with the hdk tools and are able to run "hcompile" from the cygwin command line.
+For more information about using the HDK see the `odforce wiki HDK page
+<http://odforce.net/wiki/index.php/HDK>`_. 
 
-* Unzip the HOT source ...
+.. highlight:: bash
 
-* We'll build the SOP first.::
-
-    > cd HOT/src/SOP_Ocean
-
-
-* Take a look at the Makefile, I put the 3rd party lib distributions
-  under a single root directory and make environment variables DRWLIBS
-  and DRWLIBS_CYGWIN that point to it, I do this as a windows system
-  environment variable so I can easily reference it in the user
-  variables for putting dlls on executable paths, though this isn't
-  neccessary here. I do this so I can easily change in and out
-  different sets of dependencies with the change of a couple of
-  environment vars.::
-
-    DRWLIBS        -> H:\libs    # a windows style directory name
-    DRWLIBS_CYGWIN -> h:/libs    # cygwin style
-
-* Go to <http://www.fftw.org/install/windows.html>, get the one built
-  by Franz Franchetti including the intel compiler support libs, ie
-  the first two links on the page
-  http://www.ece.cmu.edu/~franzf/fftw.org/.
-
-* Grab the latest blitz source from - http://sourceforge.net/project/showfiles.php?group_id=63961
-
-* Untar them under DRWLIBS and remove the version numbers so they are
-  simply named "fftw" and "blitz", eg ::
-
-    > ls $DRWLIBS
-    total 0
-    0 3rdParty/       0 Producer/             0 fftw3win32mingw/
-    0 OpenEXR/        0 OpenSceneGraph/       0 blitz/     0 fftw_dynamic/
-    0 OpenThreads/    0 fftw/
-
-* Build blitz++ using VS.NET 2003, you unzip the included
-  Blitz-VS.NET.zip back into the root blitz++ directory, open up the
-  .sln file and build the "Release" version of the "blitz"
-  project. This will put blitz.lib in blitz/lib.
-
-* Now a "make" in the HOT/src/houdini dir should work producing a SOP_Ocean.dll. At this point you have the various bits and pieces to install according to the instructions for the binary release above. 
-
-* You should now be able to load and run the  HOT/src/SOP_Ocean/examples/simple.hip file.
-
-* go to the HOT/src/VEX_Ocean and make to get the VEX functions
 
 Linux
 ~~~~~
 
-The linux build is quite straight forward, building all the dependencies from source.
+The linux build is quite straight forward, building all the dependencies from source (included). Do the following in a terminal - ::
 
-* Get the source distributions of both blitz++ and fftw3. Ubuntu users
-  can install a suitable fftw3 and fftw3-dev via theSynaptic package
-  manager, blitz++ has also been available in the past but is not
-  currently.
+  cd <where you put the HOT source>/src/3rdparty
+  ./build_linux.sh
+  # now would be a good time for a cuppa ...
+  cd ..
+  ./compile_linux.sh
 
-* We will build them under $DRWLIBS as for windows, but this time we
-  "make install" them there rather than just leaving the compiled
-  blitz in place and using the pre-compiled fftw.
+Alternatively instead of compile_linux.sh you can - ::
 
-* So in the blitz source directory (assuming you have setup an
-  environment variable DRWLIBS to point to a suitable directory).::
+  make 
+  make install
 
-  > ./configure --prefix=$DRWLIBS
-  > make
-  > make install
+OSX
+~~~
 
+The OSX build is quite straight forward, building all the dependencies from source (included). Do the following in a terminal - ::
 
-* and for fftw we want to get the single precision version built ...::
+  cd <where you extracted the HOT source>/src/3rdparty
+  ./build_osx.sh
+  # now would be a good time for a latte ...
+  cd ..
+  ./compile_osx.sh
 
-  > ./configure --prefix=$DRWLIBS --enable-float
-  > make
-  > make install
+Win32
+~~~~~
 
+I'm assuming you're using cygwin and bash under windows. I'm also assuming you
+have VisualStudio.NET to match your version of houdini. You should be setup to
+run "hcompile" from the cygwin command line. ::
 
-* Then go to the directory HOT/src/SOP_Ocean and ...::
+  cd <where you extracted the HOT source>/src/
+  ./compile_win32.sh
 
-    > ./compile.sh
+Win64
+~~~~~
 
-* do the same in ../VEX_Ocean
+I'm assuming you're using cygwin and bash under windows. I'm also assuming you
+have install VisualStudio.NET to match your version of houdini. You should be setup to
+run "hcompile" from the cygwin command line. ::
 
-* Note - you can also use the included Makefile to build for both cygwin/windows and linux once the dependencies are built into the directories as described above.
+  cd <where you extracted the HOT source>/src/
+  ./compile_win64.sh
+
+*Warning: win64 currently not tested, probably not working*
 
 HOT sightings
 -------------
 
-* Sam Loxton's `Ocean Storm <http://samloxton.com/index.php?location=stormyOcean>`_
+* Sam Loxton's `Ocean Storm
+  <http://samloxton.com/index.php?location=stormyOcean>`_
 
-* The time spent making the basic algorithm code independant of the HDK has obviously been useful to others - the `blender guys <http://mke3.net/weblog/another-update/>`_ have ported the code to C and it looks like this `XSI guy <http://www.kai-wolter.com/resources/xsi/ocean-in-xsi>`_ has also used the HOT as a base.
+* The time spent making the basic algorithm code independant of the
+  HDK has obviously been useful to others - the `blender guys
+  <http://mke3.net/weblog/another-update/>`_ have ported the code to C
+  and it looks like this `XSI guy
+  <http://www.kai-wolter.com/resources/xsi/ocean-in-xsi>`_ has also
+  used the HOT as a base.
 
-* Framestore used the HOT in the award winning `Smirnoff Sea commercial <http://www.framestore.com/#/Commercials%20London/Smirnoff,Sea>`_ - cool!
+* Framestore used the HOT in the award winning `Smirnoff Sea
+  commercial
+  <http://www.framestore.com/#/Commercials%20London/Smirnoff,Sea>`_ -
+  cool!
 
-* Ocean whirlpool WIP `on the forum <http://forums.odforce.net/index.php?showtopic=7340>`_.
+* Ocean whirlpool WIP `on the forum
+  <http://forums.odforce.net/index.php?showtopic=7340>`_.
 
 License
 -------
 
-The Toolkit is copyright under the `GNU GPL 2.0 <http://creativecommons.org/licenses/GPL/2.0/>`_ license.
+The toolkit is open source and copyright under the `GNU GPL 2.0
+<http://creativecommons.org/licenses/GPL/2.0/>`_ license.
+
+Support and Community
+---------------------
+
+Send any questions and feedback to the `Houdini Ocean Toolkit
+od[forum] <http://forums.odforce.net/index.php?showforum=57>`_. If
+this doesn't bring enlightement, mail the author directly
+(Drew.Whitehouse@anu.edu.au).
 
 Version History
 ---------------
@@ -411,11 +409,9 @@ Community builds
 ~~~~~~~~~~~~~~~~
 
 If you've compiled a version of HOT for a different configuration, put
-it on the web somewhere and make a link to it here (and thanks!).
-
-* linux Ubuntu 6.06 Dapper H8 binary -
-  `HOT_8_1_704_0.8_Ubuntu606_Dapper.tar.gz
-  <http://personales.ya.com/lisux/HOT_8_1_704_0.8_Ubuntu606_Dapper.tar.gz>`_
+it on the web somewhere and make a link to it on the `odWiki page
+<http://odforce.net/wiki/index.php/HoudiniOceanToolkit>`_ (and
+thanks!).
 
 Legacy Builds
 ~~~~~~~~~~~~~
@@ -448,8 +444,8 @@ Legacy Builds
 
 (*) - the cleave SOP has a mild problem in the 8.1 build
 
-Release Notes
-~~~~~~~~~~~~~
+Legacy Release Notes
+~~~~~~~~~~~~~~~~~~~~
 
 * 1.0rc2 - fixed a problem with the Makefiles that was the cause of the missing dll's from the 1.0rc1 builds.
 
@@ -509,41 +505,9 @@ Release Notes
 
 * 0.01 - alpha release, win32 only
 
-Installation
-------------
-
-* In the following you need to modify the instructions such that you
-  substitute the correct location of your home houdini folder, eg
-  $HOME/houdini8.1 is you home folder if you are using houdini
-  8.1.*. Also whenever I say something like "blah.dll", linux users
-  should read "blah.so", similarly "folder" means "directory".
- 
-* Windows users need to put a copy of the included file
-  "libfftw3f-3.dll" somewhere on their system's executable path. A
-  reasonable place is in houdini's executable folder, usually
-  something like c:\Program Files\Side Effects\Houdini 8.2.13\bin if
-  you've installed into the default folder (I don't).
-
-* Place SOP_Ocean.dll, SOP_Cleave.dll and VEX_Ocean.dll into the
-  $HOME/houdini8.1/dso folder and restart houdini. You should now have
-  "Ocean" and "Cleave" sops available (note: you need to create the
-  "dso" directory if it doesn't exist).
- 
-* to complete the install of the vex functions add a line entry
-  "VEX_Ocean.dll" (minus the quotes, see the included example) to the
-  file $HOME/houdini8.1/vex/VEXdso file. You may need to create the
-  "vex" folder if it doesn't already exist in which case you can just
-  copy (win32 only) in the VEXdso file that's included in the
-  distribution.
-
-* to get an icon to go with the SOPs copy the file SOP_Ocean.pic etc
-  into $HOME/houdini8.1/config/Icon, again creating the folders if
-  neccessary.
-
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
