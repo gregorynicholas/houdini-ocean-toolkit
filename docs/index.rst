@@ -28,8 +28,8 @@ Download
 use the matching version of houdini. The VEX dso has a better chance of
 working across versions, but it's still not recommended.*
 
-Latest Builds
-~~~~~~~~~~~~~
+Latest Releases
+~~~~~~~~~~~~~~~
 
 1.0rc6
 
