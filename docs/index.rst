@@ -54,6 +54,11 @@ Latest Releases
   - Linux and osx dependencies are now linked statically, meaning less
     installation hassles.
 
+  - Moritz Moeller has ported the vex function to a RMan shadeop. The
+    source is included in src/misc. To use copy the code into the src
+    directory above and crank up cmake. Best place to get help for
+    this is on the forum.
+
 1.0rc4
 
 * `HOT_src_1.0rc4.tar.gz
