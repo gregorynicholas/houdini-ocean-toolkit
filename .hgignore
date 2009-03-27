@@ -6,6 +6,7 @@ syntax: glob
 *.o
 *.os
 *.so
+*.a
 *.dylib
 *.ER
 *.OU

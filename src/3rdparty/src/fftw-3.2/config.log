@@ -630,11 +630,11 @@ configure:13447: checking for gcc architecture flag
 configure:13449: result: 
 configure:13471: checking for x86 cpuid 0 output
 configure:13518: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math   conftest.c  >&5
-/tmp/cc5zJMmO.s: Assembler messages:
-/tmp/cc5zJMmO.s:31: Error: suffix or operands invalid for `push'
-/tmp/cc5zJMmO.s:33: Error: suffix or operands invalid for `pop'
-/tmp/cc5zJMmO.s:39: Error: suffix or operands invalid for `push'
-/tmp/cc5zJMmO.s:42: Error: suffix or operands invalid for `pop'
+/tmp/ccJAuLJz.s: Assembler messages:
+/tmp/ccJAuLJz.s:31: Error: suffix or operands invalid for `push'
+/tmp/ccJAuLJz.s:33: Error: suffix or operands invalid for `pop'
+/tmp/ccJAuLJz.s:39: Error: suffix or operands invalid for `push'
+/tmp/ccJAuLJz.s:42: Error: suffix or operands invalid for `pop'
 configure:13522: $? = 1
 configure: program exited with status 1
 configure: failed program was:
@@ -691,11 +691,11 @@ configure: failed program was:
 configure:13549: result: unknown
 configure:13565: checking for x86 cpuid 1 output
 configure:13612: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math   conftest.c  >&5
-/tmp/ccwggiNQ.s: Assembler messages:
-/tmp/ccwggiNQ.s:31: Error: suffix or operands invalid for `push'
-/tmp/ccwggiNQ.s:33: Error: suffix or operands invalid for `pop'
-/tmp/ccwggiNQ.s:39: Error: suffix or operands invalid for `push'
-/tmp/ccwggiNQ.s:42: Error: suffix or operands invalid for `pop'
+/tmp/ccMlCB2z.s: Assembler messages:
+/tmp/ccMlCB2z.s:31: Error: suffix or operands invalid for `push'
+/tmp/ccMlCB2z.s:33: Error: suffix or operands invalid for `pop'
+/tmp/ccMlCB2z.s:39: Error: suffix or operands invalid for `push'
+/tmp/ccMlCB2z.s:42: Error: suffix or operands invalid for `pop'
 configure:13616: $? = 1
 configure: program exited with status 1
 configure: failed program was:
@@ -1759,7 +1759,7 @@ configure:20879: $? = 0
 configure:20901: result: yes
 configure:20910: checking for _doprnt
 configure:20966: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c  >&5
-/tmp/ccYO6Og6.o: In function `main':
+/tmp/ccARTwCu.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:20973: $? = 1
@@ -1862,7 +1862,7 @@ configure:21050: $? = 0
 configure:21071: result: yes
 configure:21258: checking for BSDgettimeofday
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/cc7RPCnl.o: In function `main':
+/tmp/cco1qlLN.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `BSDgettimeofday'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -1965,7 +1965,7 @@ configure:21321: $? = 0
 configure:21343: result: yes
 configure:21258: checking for gethrtime
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/ccoPQ8nq.o: In function `main':
+/tmp/cc4sY7o3.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `gethrtime'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -2065,7 +2065,7 @@ configure: failed program was:
 configure:21343: result: no
 configure:21258: checking for read_real_time
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/ccyYSY3x.o: In function `main':
+/tmp/cc6lGgMa.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `read_real_time'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -2165,7 +2165,7 @@ configure: failed program was:
 configure:21343: result: no
 configure:21258: checking for time_base_to_time
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/ccgl14xG.o: In function `main':
+/tmp/ccq2MvTk.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `time_base_to_time'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -2287,7 +2287,7 @@ configure:21321: $? = 0
 configure:21343: result: yes
 configure:21258: checking for _mm_malloc
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/cc8Erfbu.o: In function `main':
+/tmp/ccOfrTdO.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `_mm_malloc'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -2392,7 +2392,7 @@ configure: failed program was:
 configure:21343: result: no
 configure:21258: checking for _mm_free
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/ccSUZiGB.o: In function `main':
+/tmp/ccupvYsV.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `_mm_free'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -2497,7 +2497,7 @@ configure: failed program was:
 configure:21343: result: no
 configure:21258: checking for clock_gettime
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/ccop7YCK.o: In function `main':
+/tmp/ccwMwbR0.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `clock_gettime'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -2602,7 +2602,7 @@ configure: failed program was:
 configure:21343: result: no
 configure:21258: checking for mach_absolute_time
 configure:21314: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
-/tmp/cceshgzQ.o: In function `main':
+/tmp/ccM68b8a.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `mach_absolute_time'
 collect2: ld returned 1 exit status
 configure:21321: $? = 1
@@ -3097,7 +3097,7 @@ configure:21693: checking for _rtc intrinsic
 configure:21719: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm  >&5
 conftest.c: In function 'main':
 conftest.c:76: warning: implicit declaration of function '_rtc'
-/tmp/ccUjlOvT.o: In function `main':
+/tmp/ccGM7Wtu.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `_rtc'
 collect2: ld returned 1 exit status
 configure:21726: $? = 1
@@ -3320,13 +3320,13 @@ Target: x86_64-linux-gnu
 Configured with: ../src/configure -v --enable-languages=c,c++,fortran,objc,obj-c++,treelang --prefix=/usr --enable-shared --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --enable-nls --with-gxx-include-dir=/usr/include/c++/4.2 --program-suffix=-4.2 --enable-clocale=gnu --enable-libstdcxx-debug --enable-objc-gc --enable-mpfr --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
 Thread model: posix
 gcc version 4.2.4 (Ubuntu 4.2.4-1ubuntu3)
- /usr/lib/gcc/x86_64-linux-gnu/4.2.4/f951 conftest.f -ffixed-form -quiet -dumpbase conftest.f -mtune=generic -auxbase conftest -g -O2 -version -fstack-protector -I /usr/lib/gcc/x86_64-linux-gnu/4.2.4/finclude -o /tmp/ccd1Athg.s
+ /usr/lib/gcc/x86_64-linux-gnu/4.2.4/f951 conftest.f -ffixed-form -quiet -dumpbase conftest.f -mtune=generic -auxbase conftest -g -O2 -version -fstack-protector -I /usr/lib/gcc/x86_64-linux-gnu/4.2.4/finclude -o /tmp/cc6fNxpO.s
 GNU F95 version 4.2.4 (Ubuntu 4.2.4-1ubuntu3) (x86_64-linux-gnu)
 	compiled by GNU C version 4.2.4 (Ubuntu 4.2.4-1ubuntu3).
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
- as --traditional-format -V -Qy -o /tmp/ccONc6in.o /tmp/ccd1Athg.s
+ as --traditional-format -V -Qy -o /tmp/ccGEtRft.o /tmp/cc6fNxpO.s
 GNU assembler version 2.18.0 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.18.0.20080103
- /usr/lib/gcc/x86_64-linux-gnu/4.2.4/collect2 --eh-frame-hdr -m elf_x86_64 --hash-style=both -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o conftest /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../.. /tmp/ccONc6in.o -lgfortranbegin -lgfortran -lm -lgfortran -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crtn.o
+ /usr/lib/gcc/x86_64-linux-gnu/4.2.4/collect2 --eh-frame-hdr -m elf_x86_64 --hash-style=both -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o conftest /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../.. /tmp/ccGEtRft.o -lgfortranbegin -lgfortran -lm -lgfortran -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crtn.o
 configure:25421: result: -v
 configure:25423: checking for Fortran 77 libraries of gfortran
 configure:25446: gfortran -o conftest -g -O2 -v conftest.f -lm
@@ -3335,13 +3335,13 @@ Target: x86_64-linux-gnu
 Configured with: ../src/configure -v --enable-languages=c,c++,fortran,objc,obj-c++,treelang --prefix=/usr --enable-shared --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --enable-nls --with-gxx-include-dir=/usr/include/c++/4.2 --program-suffix=-4.2 --enable-clocale=gnu --enable-libstdcxx-debug --enable-objc-gc --enable-mpfr --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
 Thread model: posix
 gcc version 4.2.4 (Ubuntu 4.2.4-1ubuntu3)
- /usr/lib/gcc/x86_64-linux-gnu/4.2.4/f951 conftest.f -ffixed-form -quiet -dumpbase conftest.f -mtune=generic -auxbase conftest -g -O2 -version -fstack-protector -I /usr/lib/gcc/x86_64-linux-gnu/4.2.4/finclude -o /tmp/ccULzCic.s
+ /usr/lib/gcc/x86_64-linux-gnu/4.2.4/f951 conftest.f -ffixed-form -quiet -dumpbase conftest.f -mtune=generic -auxbase conftest -g -O2 -version -fstack-protector -I /usr/lib/gcc/x86_64-linux-gnu/4.2.4/finclude -o /tmp/ccs74jWT.s
 GNU F95 version 4.2.4 (Ubuntu 4.2.4-1ubuntu3) (x86_64-linux-gnu)
 	compiled by GNU C version 4.2.4 (Ubuntu 4.2.4-1ubuntu3).
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
- as --traditional-format -V -Qy -o /tmp/ccYTkQIc.o /tmp/ccULzCic.s
+ as --traditional-format -V -Qy -o /tmp/ccWMlbkE.o /tmp/ccs74jWT.s
 GNU assembler version 2.18.0 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.18.0.20080103
- /usr/lib/gcc/x86_64-linux-gnu/4.2.4/collect2 --eh-frame-hdr -m elf_x86_64 --hash-style=both -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o conftest /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../.. /tmp/ccYTkQIc.o -lgfortranbegin -lgfortran -lm -lgfortran -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crtn.o
+ /usr/lib/gcc/x86_64-linux-gnu/4.2.4/collect2 --eh-frame-hdr -m elf_x86_64 --hash-style=both -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o conftest /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../.. /tmp/ccWMlbkE.o -lgfortranbegin -lgfortran -lm -lgfortran -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.2.4/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib/crtn.o
 configure:25623: result:  -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../.. -lgfortranbegin -lgfortran -lm
 configure:25639: checking for dummy main to link with Fortran 77 libraries
 configure:25683: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c -lm   -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../.. -lgfortranbegin -lgfortran -lm >&5
@@ -3351,7 +3351,7 @@ configure:25823: checking for Fortran 77 name-mangling scheme
 configure:25842: gfortran -c -g -O2 conftest.f >&5
 configure:25849: $? = 0
 configure:25904: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native   conftest.c cfortran_test.o -lm   -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4 -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.2.4/../../.. -lgfortranbegin -lgfortran -lm >&5
-/tmp/ccEtH5sx.o: In function `main':
+/tmp/cccd4LkX.o: In function `main':
 conftest.c:(.text+0x7): undefined reference to `foobar'
 collect2: ld returned 1 exit status
 configure:25911: $? = 1
@@ -3559,7 +3559,7 @@ configure: failed program was:
 configure:26694: result: no
 configure:26555: checking whether pthreads work without any flags
 configure:26664: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native    conftest.c  -lm  >&5
-/tmp/ccQeKaM6.o: In function `main':
+/tmp/ccYNFPdp.o: In function `main':
 conftest.c:(.text+0x8): undefined reference to `pthread_join'
 conftest.c:(.text+0x25): undefined reference to `__pthread_register_cancel'
 conftest.c:(.text+0x32): undefined reference to `pthread_create'
@@ -3667,7 +3667,7 @@ configure:26694: result: no
 configure:26560: checking whether pthreads work with -Kthread
 configure:26664: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native -Kthread   conftest.c  -lm  >&5
 gcc: unrecognized option '-Kthread'
-/tmp/ccGTYvre.o: In function `main':
+/tmp/ccgMcxrf.o: In function `main':
 conftest.c:(.text+0x8): undefined reference to `pthread_join'
 conftest.c:(.text+0x25): undefined reference to `__pthread_register_cancel'
 conftest.c:(.text+0x32): undefined reference to `pthread_create'
@@ -3775,7 +3775,7 @@ configure:26694: result: no
 configure:26560: checking whether pthreads work with -kthread
 configure:26664: gcc -std=gnu99 -o conftest -O3 -fomit-frame-pointer -fstrict-aliasing -ffast-math -march=native -kthread   conftest.c  -lm  >&5
 gcc: unrecognized option '-kthread'
-/tmp/cc2yjirn.o: In function `main':
+/tmp/ccupQO6n.o: In function `main':
 conftest.c:(.text+0x8): undefined reference to `pthread_join'
 conftest.c:(.text+0x25): undefined reference to `__pthread_register_cancel'
 conftest.c:(.text+0x32): undefined reference to `pthread_create'
@@ -4046,6 +4046,7 @@ config.status:1171: creating tools/fftw_wisdom.1
 config.status:1171: creating tools/fftw-wisdom-to-conf
 config.status:1171: creating fftw.pc
 config.status:1171: creating config.h
+config.status:1393: config.h is unchanged
 config.status:1445: executing depfiles commands
 config.status:1445: executing libtool commands
 configure:29669: WARNING: unrecognized options: --enable-optimize
