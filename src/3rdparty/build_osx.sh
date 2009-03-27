@@ -9,7 +9,7 @@ make install && make distclean
 popd
 
 echo "installing to $IDIR"
-echo "building in src/blitz-0.9"
+echo "building in src/blitz"
 pushd src/blitz
 make distclean
 LDFLAGS="-m64" CXX="c++ -m64" ./configure  --enable-threadsafe --enable-optimize --enable-static --prefix=$IDIR 
