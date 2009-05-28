@@ -244,7 +244,6 @@ SOP_Cleave::cookMySop(OP_Context &context)
     delete scratch_gdp;
 
     // create rest pos attribute
-       
     float zeros[3] = {1,1,1};
     int cleave_rest_pos = gdp->addPointAttrib("CleaveRestPos", sizeof(float)*3,
                                               GB_ATTRIB_FLOAT, (void *)zeros);
