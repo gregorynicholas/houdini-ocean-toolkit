@@ -13,7 +13,6 @@ covered by their own individual license terms.
    http://www.oonumerics.org/blitz/legal/). 
 4. Loki, http://sourceforge.net/projects/loki-lib/ (MIT License)
 
-
 For documentation etc start by looking at -
 
        http://www.odforce.net/wiki/index.php/HoudiniOceanToolkit
