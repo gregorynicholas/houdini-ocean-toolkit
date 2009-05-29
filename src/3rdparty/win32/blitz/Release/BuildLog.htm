@@ -1,0 +1,50 @@
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" content="text/html; charset=Windows-1252">
+</head>
+<body>
+<pre>
+<table width=100% bgcolor=#CFCFE5><tr> <td> <font face=arial size=+3>
+Build Log
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+<h3>------- Build started: Project: blitz, Configuration: Release|Win32 -------
+</h3>
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Command Lines
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Creating temporary file "z:\live\drw900\tmp\blitz-0.9\blitz\Release\RSP000001.rsp" with contents
+[
+/O2 /Ot /G6 /I "Z:\live\drw900\tmp\blitz-0.9\\" /D "WIN32" /D "NDEBUG" /D "_LIB" /D "_MBCS" /FD /EHsc /ML /arch:SSE /Zc:forScope /GR /Fo"Release/" /Fd"Release/vc70.pdb" /W3 /c /Wp64 /TP
+"\live\drw900\tmp\blitz-0.9\src\globals.cpp"
+]
+Creating command line "cl.exe @"z:\live\drw900\tmp\blitz-0.9\blitz\Release\RSP000001.rsp" /nologo"
+Creating temporary file "z:\live\drw900\tmp\blitz-0.9\blitz\Release\RSP000002.rsp" with contents
+[
+/OUT:"Release/blitz.lib" /NOLOGO
+".\Release\globals.obj"
+]
+Creating command line "lib.exe @"z:\live\drw900\tmp\blitz-0.9\blitz\Release\RSP000002.rsp""
+Creating temporary file "z:\live\drw900\tmp\blitz-0.9\blitz\Release\BAT000003.bat" with contents
+[
+@echo off
+copy /Y "z:\live\drw900\tmp\blitz-0.9\blitz\Release\blitz.lib" "Z:\live\drw900\tmp\blitz-0.9\lib\blitz.lib"
+if errorlevel 1 goto VCReportError
+goto VCEnd
+:VCReportError
+echo Project : error PRJ0019: A tool returned an error code from "copying blitz.lib..."
+exit 1
+:VCEnd
+]
+Creating command line ""z:\live\drw900\tmp\blitz-0.9\blitz\Release\BAT000003.bat""
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Output Window
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>Compiling...
+globals.cpp
+Creating library...
+copying blitz.lib...
+        1 file(s) copied.
+</pre></table><table width=100% bgcolor=#DFDFE5><tr><td><font face=arial size=+2>
+Results
+</font></table><table width=* cellspacing=0 cellpadding=0><tr><td width=0 bgcolor=#EDEDF5>&nbsp;</td><td width=0 bgcolor=#FFFFFF>&nbsp;</td><td width=*><pre>
+Build log was saved at "file://z:\live\drw900\tmp\blitz-0.9\blitz\Release\BuildLog.htm"
+blitz - 0 error(s), 0 warning(s)</pre></table><table   width=100% height=20 bgcolor=#CFCFE5><tr><td><font face=arial size=+2>
+</font></table></body></html>
