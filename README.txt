@@ -1,8 +1,6 @@
 This is the source code for the Houdini Ocean Toolkit.
 
-The interesting bits are in the include/Ocean.h and src/houdini/
-directories. You can build a simple test program that writes out
-openexr image files (currently only for win32) in the vc7 directory.
+The interesting bits are in the src, particularly src/Ocean.h.
 
 For licensing details see the file LICENSE.txt.
 
@@ -18,22 +16,9 @@ covered by their own individual license terms.
 4. Loki, http://sourceforge.net/projects/loki-lib/ (MIT License)
 
 
-Documentation
--------------
-
-The documentation for the toolkit is to be found online at -
+For more information start by looking at -
 
        http://www.odforce.net/wiki/index.php/HoudiniOceanToolkit
-
-
-Building
---------
-
-Build instructions -
-
-       http://www.odforce.net/wiki/index.php/HoudiniOceanToolkit
-
-
 
 Drew Whitehouse
 ANU Supercomputer Facility
