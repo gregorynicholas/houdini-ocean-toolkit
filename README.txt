@@ -17,6 +17,10 @@ For documentation etc start by looking at -
 
        http://www.odforce.net/wiki/index.php/HoudiniOceanToolkit
 
+The source is maintained at 
+
+       http://code.google.com/p/houdini-ocean-toolkit/
+
 Drew Whitehouse
 ANU Supercomputer Facility
 June 2005,2009
