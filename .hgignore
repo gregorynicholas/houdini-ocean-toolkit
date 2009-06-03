@@ -24,6 +24,7 @@ fftw-3.2/fftw3f.pc
 *.texi
 *.out
 docs/_build
+CMakeModules/FindHDK.cmake
 
 syntax: regexp
 .*\#.*\#$
