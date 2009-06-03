@@ -90,11 +90,11 @@ Latest Releases
 Latest source from Google Code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Google code is a `mercurial <http://www.selenic.com/mercurial/wiki/>`_
- (and subversion) project hosting site. You will need to have
- mercurial installed on your machine. Go to the `HOT page
- http://code.google.com/p/houdini-ocean-toolkit/>`_ on Google code for
- information about how to download the latest source.
+The HOT project is hosted on the Google code website as a `mercurial
+<http://www.selenic.com/mercurial/wiki/>`_ repository. You will need
+to have mercurial installed on your machine. Go to the `Houdini Ocean
+Toolkit <http://code.google.com/p/houdini-ocean-toolkit/>`_ page on
+Google code for information about how to download the latest source.
 
 Examples
 --------
