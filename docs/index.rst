@@ -87,16 +87,14 @@ Latest Releases
   <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc2.zip>`_
 
 
-Latest source from Bitbucket
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Latest source from Google Code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Bitbucket is a `mercurial <http://www.selenic.com/mercurial/wiki/>`_
-project hosting site. You will need to have mercurial installed on
-your machine. Go to the `HOT page
-<http://www.bitbucket.org/eloop/hot/>`_ on Bitbucket. To get a copy of
-the distribution you simply ::
-
-    hg clone http://bitbucket.org/eloop/hot/
+Google code is a `mercurial <http://www.selenic.com/mercurial/wiki/>`_
+ (and subversion) project hosting site. You will need to have
+ mercurial installed on your machine. Go to the `HOT page
+ http://code.google.com/p/houdini-ocean-toolkit/>`_ on Google code for
+ information about how to download the latest source.
 
 Examples
 --------
