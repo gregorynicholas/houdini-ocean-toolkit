@@ -1,5 +1,0 @@
-2009-03-27  Drew Whitehouse  <Drew.Whitehouse@anu.edu.au>
-
-	* changed the included blitz to latest CVS version in the quest
-	for safe multithreading on windows
-
