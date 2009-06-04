@@ -3,7 +3,7 @@
 # 
 cmake_minimum_required(VERSION 2.6)
 
-project(Houdini_Ocean_Toolkit)
+project(hot)
 
 # run our helper process to grab the compile and link flags from hcustom
 
@@ -20,18 +20,25 @@ set(CMAKE_INSTALL_PREFIX ${HDK_HIH_DIR})
 
 add_subdirectory(src)
 
+install(FILES pavement.py setup.py paver-minilib.zip DESTINATION .)
+
 #
 # packaging setup
 #
+INCLUDE(InstallRequiredSystemLibraries)
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "The Houdini Ocean Toolkit")
 SET(CPACK_PACKAGE_VENDOR "Drew.Whitehouse@anu.edu.au")
 SET(CPACK_PACKAGE_VERSION_MAJOR "1")
-SET(CPACK_PACKAGE_VERSION_MINOR "0rc7")
-SET(CPACK_PACKAGE_VERSION_PATCH "0")
+SET(CPACK_PACKAGE_VERSION_MINOR "0")
+SET(CPACK_PACKAGE_VERSION_PATCH "rc7")
+
 IF(WIN32 AND NOT UNIX)
-SET(CPACK_GENERATOR "ZIP")
+  SET(CPACK_GENERATOR "ZIP")
 ELSE(WIN32 AND NOT UNIX)
-SET(CPACK_GENERATOR "TGZ")
+   SET(CPACK_SYSTEM_NAME "h$ENV{HOUDINI_VERSION}")
+#  SET(CPACK_SYSTEM_NAME "H$ENV{HOUDINI_VERSION}-gcc-$ENV{HOUDINI_BUILD_COMPILER}-$ENV{HOUDINI_BUILD_KERNEL}")
+  SET(CPACK_GENERATOR "TGZ")
 ENDIF(WIN32 AND NOT UNIX)
 
 include(CPack)
+
