@@ -9,7 +9,6 @@ if (HDK_FOUND)
     link_directories(${HDK_LIBRARY_DIRS})
 endif (HDK_FOUND)
 
-
 # this command calls hdk-config.py to build a special file that will be the repository of the taginfo
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/sesitag.C
                    DEPENDS ${SOP_Star_SRCS}
@@ -33,7 +32,6 @@ else (FFTW_FOUND)
     message(FATAL_ERROR "FFTW NOT FOUND")
 endif (FFTW_FOUND)
 
-
 include_directories("3rdparty/include")
 
 # SOP_Cleave
@@ -42,6 +40,7 @@ add_library(SOP_Cleave SHARED ${SOP_Cleave_SRCS}  ${CMAKE_BINARY_DIR}/sesitag.C)
 set_target_properties(SOP_Cleave PROPERTIES PREFIX "")
 target_link_libraries(SOP_Cleave ${HDK_LIBRARIES})
 install(TARGETS SOP_Cleave LIBRARY DESTINATION dso)
+install(FILES SOP_Cleave.icon DESTINATION config/Icons)
 
 # SOP_Ocean
 set(SOP_Ocean_SRCS SOP_Ocean.C)
@@ -49,6 +48,7 @@ add_library(SOP_Ocean SHARED ${SOP_Ocean_SRCS}  ${CMAKE_BINARY_DIR}/sesitag.C)
 set_target_properties(SOP_Ocean PROPERTIES PREFIX "")
 target_link_libraries(SOP_Ocean ${HDK_LIBRARIES})
 install(TARGETS SOP_Ocean LIBRARY DESTINATION dso)
+install(FILES SOP_Ocean.png DESTINATION config/Icons)
 
 # VEX_Ocean
 set(VEX_Ocean_SRCS VEX_Ocean.C)
