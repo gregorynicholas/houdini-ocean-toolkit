@@ -5,13 +5,15 @@ echo "Building and installing the Houdini Ocean Toolkit..."
 echo
 #
 
-hcustom  \
+hcustom  -e \
         -I 3rdparty/include \
         -I 3rdparty/win64 \
         -L 3rdparty/win64 \
-        -l blitz.lib \
         -l libfftw3f-3.lib \
-        SOP_Ocean.C VEX_Ocean.C SOP_Cleave.C
+        -l blitz.lib \
+        VEX_Ocean.C
+
+#        SOP_Ocean.C VEX_Ocean.C SOP_Cleave.C
 
 echo "Done compiling and installing the DSO's to $HIH/dso."
 echo
