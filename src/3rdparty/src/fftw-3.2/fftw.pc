@@ -1,4 +1,4 @@
-prefix=/home/drw900/dev/hot/src/3rdparty/linux
+prefix=/home/drw900/dev/houdini/hot/src/3rdparty/linux
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
