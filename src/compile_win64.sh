@@ -11,9 +11,7 @@ hcustom  -e \
         -L 3rdparty/win64 \
         -l libfftw3f-3.lib \
         -l blitz.lib \
-        VEX_Ocean.C
-
-#        SOP_Ocean.C VEX_Ocean.C SOP_Cleave.C
+        SOP_Ocean.C VEX_Ocean.C SOP_Cleave.C
 
 echo "Done compiling and installing the DSO's to $HIH/dso."
 echo
