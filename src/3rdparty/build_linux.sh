@@ -1,8 +1,8 @@
 #!/bin/bash
 
 IDIR=`pwd`/linux
-echo "building in src/fftw-3.2"
-pushd src/fftw-3.2
+echo "building in src/fftw-3.2.2"
+pushd src/fftw-3.2.2
 ./configure --with-pic --enable-threads --enable-optimize --enable-shared=no --enable-single --enable-sse --prefix=$IDIR  
 make clean
 make install && make distclean
