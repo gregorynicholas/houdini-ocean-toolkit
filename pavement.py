@@ -6,7 +6,6 @@ import os,sys,platform
 from paver.easy import *
 from paver.setuputils import setup
 
-
 try:
     from paver.ssh import scp
     @task
@@ -23,15 +22,20 @@ except ImportError:
 # this will probably end up going into it's own file to be 'installed' into the dist dir
 #
 @task
-def install_hot():
+def install_hot(options):
     """Install the Houdini Ocean Tools binary distribution."""
 
+    # do the following to force the use of hython instead of python ...
     
-    try:
-        import hou
-    except ImportError:
-        print "Error: you mustn't have houdini installed properly, are you running this under hython ?"
-        sys.exit(1)
+    # try:
+    #     import hou
+    # except ImportError:
+    #     print "Error: you mustn't have houdini installed properly, are you running this under hython ?"
+    #     sys.exit(1)
+
+    if options.dry_run:
+
+        print '\n\nThe install will do the following operations...\n'
 
     # work out where things will go
     if 'linux' in sys.platform:
@@ -42,7 +46,6 @@ def install_hot():
         pass
     #print 'rootdir',rootdir
 
-
     # copy the dso's, keep track of VEX extensions
     vexdsos = []
     for f in path('dso').glob('*'):
@@ -50,18 +53,18 @@ def install_hot():
         if 'VEX_' in f:
             vexdsos.append(f)
 
-    add_vex_entries(rootdir/'vex/VEXdso',vexdsos)
+    add_vex_entries(options,rootdir/'vex/VEXdso',vexdsos)
     
     # copy the icons
     for f in path('config/Icons').glob('*'):
         f.copy(rootdir/'config/Icons')
                
                
-def add_vex_entries(vexdsofile,entries):
+def add_vex_entries(options,vexdsofile,entries):
 
     if vexdsofile.exists():
         backup = vexdsofile + '.orig'
-        #print 'Backing up your VEXdso file to %s' % backup
+        print 'back up the VEXdso file to %s' % backup
         vexdsofile.copy(backup)
 
     # get the current entries
@@ -69,12 +72,14 @@ def add_vex_entries(vexdsofile,entries):
         lines = [l.strip() for l in vexdsofile.lines()]
     except IOError:
         lines = []
-        
-    #print 'lines',lines
+
     for e in entries:
-        #print 'Adding %s to %s' % (e.name,vexdsofile)
-        if e.name not in lines:
+        if e.name in lines:
+            for i in range(0,lines.count(e.name)-1):
+                lines.remove(e.name)
+        else:
             lines.append(e.name)
-    #print 'now lines=',lines
-    vexdsofile.write_lines(lines)
+
+    if not options.dry_run:
+        vexdsofile.write_lines(lines)
 
