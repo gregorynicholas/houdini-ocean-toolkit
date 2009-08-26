@@ -101,7 +101,7 @@ def bdist():
         for f in map(soname,srcfiles):
             path(f).copy(path('dist/dso')/(f+'.manifest'))
         path('dist/dlls').makedirs()
-        path('3rdparty/win64/libfftw3f-3.dll').copy(path('dist/dlls')
+        path('3rdparty/win64/libfftw3f-3.dll').copy(path('dist/dlls'))
     
 def soname(srcfile):
     return srcfile[:-2]+soext
