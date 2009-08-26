@@ -69,11 +69,11 @@ def install():
 @task
 def bdist():
     """makes a binary distribution of the plugins"""
-    path('dist').rmtree()
+    path('hotdist').rmtree()
     #call_task('build')
-    path('dist').makedirs()
+    path('hotdist').makedirs()
 
-    with pushd('dist'):
+    with pushd('hotdist'):
         path('dso').makedirs()
         path('config').makedirs()
         path('config/Icons').makedirs()
@@ -82,26 +82,26 @@ def bdist():
 
     # copy the dso's
     for f in map(soname,srcfiles):
-        path(f).copy(path('dist/dso')/f)
+        path(f).copy(path('hotdist/dso')/f)
 
     # copy in the Icons
     for f in path('.').files('*.png'):
-        f.copy(path('dist/config/Icons')/f)
+        f.copy(path('hotdist/config/Icons')/f)
     for f in path('.').files('*.icon'):
-        f.copy(path('dist/config/Icons')/f)
+        f.copy(path('hotdist/config/Icons')/f)
         
     # write the VEXdso
-    path('dist/vex/VEXdso').write_lines([soname('VEX_Ocean.C')])
+    path('hotdist/vex/VEXdso').write_lines([soname('VEX_Ocean.C')])
 
     # copy the otl
-    path('../examples_and_otl/otls/HOT.otl').copy(path('dist/otls'))
+    path('../examples_and_otl/otls/HOT.otl').copy(path('hotdist/otls'))
 
     # if we are on windows, we need manifests and the fftw dll
     if sys.platform == 'win32':
         for f in map(soname,srcfiles):
-            path(f).copy(path('dist/dso')/(f+'.manifest'))
-        path('dist/dlls').makedirs()
-        path('3rdparty/win64/libfftw3f-3.dll').copy(path('dist/dlls'))
+            path(f).copy(path('hotdist/dso')/(f+'.manifest'))
+        path('hotdist/dlls').makedirs()
+        path('3rdparty/win64/libfftw3f-3.dll').copy(path('hotdist/dlls'))
     
 def soname(srcfile):
     return srcfile[:-2]+soext
