@@ -28,7 +28,7 @@ elif sys.platform == 'win32':
     # how do we tell Win32 from Win64 ?
     build_type = 'win64'
     soext = '.dll'
-    oext = '.obj'
+    oext = '.o'
     includes='-I 3rdparty/win64 -I 3rdparty/include'
     libs='-L 3rdparty/win64 -l blitz.lib -l libfftw3f-3.lib'
 else:
@@ -66,25 +66,40 @@ def install():
     """build and install the plugins"""
     sofiles = map(soname,srcfiles)
     
-
-
 @task
 def bdist():
     """makes a binary distribution of the plugins"""
-    #path('dist').rmtree()
+    path('dist').rmtree()
     #call_task('build')
     path('dist').makedirs()
 
+    with pushd('dist'):
+        path('dso').makedirs()
+        path('config').makedirs()
+        path('config/Icons').makedirs()
+        path('vex').makedirs()
+        path('otls').makedirs()
+
     # copy the dso's
     for f in map(soname,srcfiles):
-        path(f).copy(path('dist')/f)
+        path(f).copy(path('dist/dso')/f)
 
+    # copy in the Icons
+    for f in path('.').files('*.png'):
+        f.copy(path('dist/config/Icons')/f)
+    for f in path('.').files('*.icon'):
+        f.copy(path('dist/config/Icons')/f)
+        
     # write the VEXdso
+    path('dist/vex/VEXdso').write_lines([soname('VEX_Ocean.C')])
 
+    # copy the otl
+    path('../examples_and_otl/otls/HOT.otl').copy(path('dist/otls'))
 
-    # copy the relevant pavement file for the installation script
+    # if we are on windows, we need a dll's directory
+    if sys.platform:
     
-
+    
 def soname(srcfile):
     return srcfile[:-2]+soext
 
