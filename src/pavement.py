@@ -83,9 +83,6 @@ def bdist():
     # copy the dso's
     for f in map(soname,srcfiles):
         path(f).copy(path('dist/dso')/f)
-    if sys.platform == 'win32':
-        for f in map(soname,srcfiles):
-            path(f).copy(path('dist/dso')/(f+'.manifest'))
 
     # copy in the Icons
     for f in path('.').files('*.png'):
@@ -99,9 +96,12 @@ def bdist():
     # copy the otl
     path('../examples_and_otl/otls/HOT.otl').copy(path('dist/otls'))
 
-    # if we are on windows, we need a dll's directory
-    #if sys.platform:
-    
+    # if we are on windows, we need manifests and the fftw dll
+    if sys.platform == 'win32':
+        for f in map(soname,srcfiles):
+            path(f).copy(path('dist/dso')/(f+'.manifest'))
+        path('dlls').makedirs()
+        path('dist/dlls').copy('3rdparty/win64/libfftw3f-3.dll')
     
 def soname(srcfile):
     return srcfile[:-2]+soext
