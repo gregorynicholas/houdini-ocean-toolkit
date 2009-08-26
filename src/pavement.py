@@ -94,7 +94,11 @@ def bdist():
     path('hotdist/vex/VEXdso').write_lines([soname('VEX_Ocean.C')])
 
     # copy the otl
-    path('../examples_and_otl/otls/HOT.otl').copy(path('hotdist/otls'))
+    for f in path('../otls').files('*.otl'):
+        f.copy(path('hotdist/otls'))
+
+    # copy the examples
+    path('../examples').copytree('hotdist/examples')
 
     # if we are on windows, we need manifests and the fftw dll
     if sys.platform == 'win32':
