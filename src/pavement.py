@@ -97,7 +97,7 @@ def bdist():
     path('../examples_and_otl/otls/HOT.otl').copy(path('dist/otls'))
 
     # if we are on windows, we need a dll's directory
-    if sys.platform:
+    #if sys.platform:
     
     
 def soname(srcfile):
