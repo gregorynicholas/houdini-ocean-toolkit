@@ -4,10 +4,9 @@
 from __future__ import with_statement
 import os,sys,platform
 from paver.easy import *
-from paver.ssh import scp
 from paver.setuputils import setup
 
-srcfiles = "SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C".split()
+srcfiles = 'SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C'.split()
 
 # work out what platform we're using
 if 'linux' in sys.platform:
@@ -15,32 +14,32 @@ if 'linux' in sys.platform:
         build_type = 'linux_64'
     else:
         build_type = 'linux_32'
-    soext = ".so"
-    oext = ".o"
-    includes="-I 3rdparty/linux/include -I 3rdparty/include"
-    libs="-L 3rdparty/linux/lib -l blitz -l fftw3f"
+    soext = '.so'
+    oext = '.o'
+    includes='-I 3rdparty/linux/include -I 3rdparty/include'
+    libs='-L 3rdparty/linux/lib -l blitz -l fftw3f'
 elif sys.platform == 'darwin':
     build_type = 'osx_64'
-    soext = ".dylib"
-    oext = ".o"
-    includes="-I 3rdparty/osx/include -I 3rdparty/include"
-    libs="-L 3rdparty/osx/lib -l blitz -l fftw3f"
+    soext = '.dylib'
+    oext = '.o'
+    includes='-I 3rdparty/osx/include -I 3rdparty/include'
+    libs='-L 3rdparty/osx/lib -l blitz -l fftw3f'
 elif sys.platform == 'win32':
     # how do we tell Win32 from Win64 ?
     build_type = 'win64'
-    soext = ".dll"
-    oext = ".obj"
-    includes="-I 3rdparty/win64 -I 3rdparty/include"
-    libs="-L 3rdparty/win64 -l blitz.lib -l libfftw3f-3.lib"
+    soext = '.dll'
+    oext = '.obj'
+    includes='-I 3rdparty/win64 -I 3rdparty/include'
+    libs='-L 3rdparty/win64 -l blitz.lib -l libfftw3f-3.lib'
 else:
-    RuntimeError("paver script has not been implemented for this architecture (%s)" % sys.platform)
+    RuntimeError('paver script has not been implemented for this architecture (%s)' % sys.platform)
 
 setup(
-    name="The Houdini Ocean Toolkit",
+    name='The Houdini Ocean Toolkit',
     packages=[],
-    version="1.0rc6",
-    author="Drew Whitehouse",
-    author_email="Drew.Whitehouse@anu.edu.au")
+    version='1.0rc6',
+    author='Drew Whitehouse',
+    author_email='Drew.Whitehouse@anu.edu.au')
 
 @task
 def update_docs():
@@ -48,7 +47,6 @@ def update_docs():
     with pushd(path('docs')):
         sh('make html')
     sh('scp -r docs/_build/* sf:public_html/houdini/ocean/docs')
-
 
 @task
 def clean():
@@ -59,19 +57,33 @@ def clean():
 @task
 def build():
     """builds the plugins inplace, ie doesn't install them"""
-    call_task("clean")
-    call_task("build_sop_cleave")
-    call_task("build_sop_ocean")
-    call_task("build_vex_ocean")
+    call_task('clean')
+    call_task('build_sop_cleave')
+    call_task('build_sop_ocean')
+    call_task('build_vex_ocean')
 
 def install():
     """build and install the plugins"""
-    pass
+    sofiles = map(soname,srcfiles)
+    
+
 
 @task
 def bdist():
     """makes a binary distribution of the plugins"""
-    pass
+    #path('dist').rmtree()
+    #call_task('build')
+    path('dist').makedirs()
+
+    # copy the dso's
+    for f in map(soname,srcfiles):
+        path(f).copy(path('dist')/f)
+
+    # write the VEXdso
+
+
+    # copy the relevant pavement file for the installation script
+    
 
 def soname(srcfile):
     return srcfile[:-2]+soext
@@ -83,20 +95,21 @@ def hcustom(srcfile):
     """run hcustom on the srcfile, don't install the result"""
     path(oname(srcfile)).remove()
     path(soname(srcfile)).remove()
-    sh("hcustom  -e %s %s  -i . %s" % (includes,libs,srcfile))
+    sh('hcustom  -e %s %s  -i . %s' % (includes,libs,srcfile))
     assert path(oname(srcfile)).exists()
     assert path(soname(srcfile)).exists()
 
 @task
 def build_sop_cleave():
-    hcustom("SOP_Cleave.C")
+    hcustom('SOP_Cleave.C')
 
 @task
 def build_sop_ocean():
-    hcustom("SOP_Ocean.C")
+    hcustom('SOP_Ocean.C')
     pass
+
 @task
 def build_vex_ocean():
-    hcustom("VEX_Ocean.C")
+    hcustom('VEX_Ocean.C')
     
 
