@@ -83,6 +83,9 @@ def bdist():
     # copy the dso's
     for f in map(soname,srcfiles):
         path(f).copy(path('dist/dso')/f)
+    if sys.platform == 'win32':
+        for f in map(soname,srcfiles):
+            path(f).copy(path('dist/dso')/(f+'.manifest'))
 
     # copy in the Icons
     for f in path('.').files('*.png'):
