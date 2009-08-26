@@ -100,7 +100,7 @@ def bdist():
     if sys.platform == 'win32':
         for f in map(soname,srcfiles):
             path(f).copy(path('dist/dso')/(f+'.manifest'))
-        path('dlls').makedirs()
+        path('dist/dlls').makedirs()
         path('dist/dlls').copy('3rdparty/win64/libfftw3f-3.dll')
     
 def soname(srcfile):
