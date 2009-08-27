@@ -20,7 +20,7 @@ set(CMAKE_INSTALL_PREFIX ${HDK_HIH_DIR})
 
 add_subdirectory(src)
 
-install(FILES pavement.py setup.py paver-minilib.zip DESTINATION .)
+install(FILES pavement.py DESTINATION .)
 
 #
 # packaging setup
