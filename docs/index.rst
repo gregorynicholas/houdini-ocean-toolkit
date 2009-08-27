@@ -31,6 +31,21 @@ working across versions, but it's still not recommended.*
 Latest Releases
 ~~~~~~~~~~~~~~~
 
+1.0rc7
+
+* `HOT_src_1.0rc7.tar.gz
+  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc7.tar.gz>`_,
+
+  - moved over to a python based cross platform build and packaging
+    system, uses the "paver" utility
+
+  - updated to fftw3.2.2
+
+  - updated to the CVS version of blitz++ which includes re-entrancy
+    support for windows
+
+  - windows binary packages!
+
 1.0rc6
 
 * `HOT_src_1.0rc6.tar.gz

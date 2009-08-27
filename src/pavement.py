@@ -11,15 +11,15 @@ srcfiles = 'SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C'.split()
 # work out what platform we're using
 if 'linux' in sys.platform:
     if platform.machine()=='x86_64':
-        build_type = 'linux_64'
+        build_type = 'linux64'
     else:
-        build_type = 'linux_32'
+        build_type = 'linux32'
     soext = '.so'
     oext = '.o'
     includes='-I 3rdparty/linux/include -I 3rdparty/include'
     libs='-L 3rdparty/linux/lib -l blitz -l fftw3f'
 elif sys.platform == 'darwin':
-    build_type = 'osx_64'
+    build_type = 'osx'
     soext = '.dylib'
     oext = '.o'
     includes='-I 3rdparty/osx/include -I 3rdparty/include'
@@ -106,6 +106,11 @@ def bdist():
             path(f).copy(path('hotdist/dso')/(f+'.manifest'))
         path('hotdist/dlls').makedirs()
         path('3rdparty/win64/libfftw3f-3.dll').copy(path('hotdist/dlls'))
+
+    # finally move the directory to a representative name
+    distname = 'hotbin_%s_%s.%s' % (build_type,os.getenv('HOUDINI_MAJOR_RELEASE'),os.getenv('HOUDINI_MINOR_RELEASE'))
+    path(distname).rmtree()
+    path('hotdist').rename(distname)
     
 def soname(srcfile):
     return srcfile[:-2]+soext
