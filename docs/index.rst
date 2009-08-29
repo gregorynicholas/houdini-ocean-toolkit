@@ -28,23 +28,23 @@ Download
 use the matching version of houdini. The VEX dso has a better chance of
 working across versions, but it's still not recommended.*
 
+All source and binary distributions can be downloaded from the `Google Code downloads <http://code.google.com/p/houdini-ocean-toolkit/downloads>`_
+.
+
 Latest Releases
 ~~~~~~~~~~~~~~~
 
 1.0rc7
 
-* `HOT_src_1.0rc7.tar.gz
-  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc7.tar.gz>`_,
+  * finally osx and windows binary packages!
 
-  - moved over to a python based cross platform build and packaging
+  * moved over to a python based cross platform build and packaging
     system, uses the "paver" utility
 
-  - updated to fftw3.2.2
+  * updated to fftw3.2.2
 
-  - updated to the CVS version of blitz++ which includes re-entrancy
+  * updated to the CVS version of blitz++ which includes re-entrancy
     support for windows
-
-  - windows binary packages!
 
 1.0rc6
 
@@ -74,32 +74,6 @@ Latest Releases
     directory above and crank up cmake. Best place to get help for
     this is on the forum.
 
-1.0rc4
-
-* `HOT_src_1.0rc4.tar.gz
-  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc4.tar.gz>`_,
-  src only now, though it has now been compiled on linux, win32
-  and OSX. There is a problem with mantra displacement shading, see
-  `this thread <http://forums.odforce.net/index.php?showtopic=8014>`_.
-
-1.0rc3
-
-* `HOT_src_1.0rc3.zip
-  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc3.zip>`_
-  (from the `forum
-  <http://forums.odforce.net/index.php?showtopic=6810&st=12&gopid=47389&#entry47389>`_
-  thread, linux only).
-
-1.0rc2
-
-* win32 binary - `HOT_9_0_782_1.0rc2_win32.zip
-  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_9_0_782_1.0rc2_win32.zip>`_
-
-* win32 binary - `HOT_9_0_768_1.0rc2_win32.zip
-  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_9_0_768_1.0rc2_win32.zip>`_
-
-* source - `HOT_src_1.0rc2.zip
-  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc2.zip>`_
 
 
 Latest source from Google Code
@@ -344,7 +318,7 @@ See the OTL directory for examples of VOP usage.
 Building from source
 --------------------
 
-Before building the HOT from source you should be able to successfully
+Before building the HOT from source you *must* be able to successfully
 compile and install Houdini Development Kit (HDK)
 code. ``$HT/toolkit/samples/SOP/SOP_Star.C`` is a good one to try
 first. So before going any further try this - ::
@@ -491,6 +465,14 @@ Legacy Builds
 
 Legacy Release Notes
 ~~~~~~~~~~~~~~~~~~~~
+
+* 1.0rc4 - Src only now, though it has now been compiled on linux,
+  win32 and OSX. There is a problem with mantra displacement shading,
+  see `this thread
+  <http://forums.odforce.net/index.php?showtopic=8014>`_.
+
+* 1.0rc3  -  See `forum <http://forums.odforce.net/index.php?showtopic=6810&st=12&gopid=47389&#entry47389>`_
+  thread, linux only.
 
 * 1.0rc2 - fixed a problem with the Makefiles that was the cause of the missing dll's from the 1.0rc1 builds.
 

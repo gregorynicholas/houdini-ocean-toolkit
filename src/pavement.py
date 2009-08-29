@@ -2,9 +2,11 @@
 # build and deployment tools for the HOT
 #
 from __future__ import with_statement
-import os,sys,platform
+import os,sys,platform,zipfile
 from paver.easy import *
 from paver.setuputils import setup
+
+release_version = '1.0rc7'
 
 srcfiles = 'SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C'.split()
 
@@ -25,7 +27,7 @@ elif sys.platform == 'darwin':
     includes='-I 3rdparty/osx/include -I 3rdparty/include'
     libs='-L 3rdparty/osx/lib -l blitz -l fftw3f'
 elif sys.platform == 'win32':
-    # how do we tell Win32 from Win64 ?
+    # how do we tell Win32 from Win64, maybe we'll need to force the use of hython ?
     build_type = 'win64'
     soext = '.dll'
     oext = '.o'
@@ -37,7 +39,7 @@ else:
 setup(
     name='The Houdini Ocean Toolkit',
     packages=[],
-    version='1.0rc6',
+    version=release_version,
     author='Drew Whitehouse',
     author_email='Drew.Whitehouse@anu.edu.au')
 
@@ -53,6 +55,16 @@ def clean():
     for f in srcfiles:
         path(soname(f)).remove()
         path(oname(f)).remove()
+    for p in path('.').glob('hotbin_*'):
+        if p.isdir():
+            p.rmtree()
+    for p in path('.').glob('hotsrc_*'):
+        if p.isdir():
+            p.rmtree()
+    for p in path('.').glob('hotbin_*.zip'):
+        p.remove()
+    for p in path('.').glob('hotsrc_*.zip'):
+        p.remove()
 
 @task
 def build():
@@ -65,12 +77,32 @@ def build():
 def install():
     """build and install the plugins"""
     sofiles = map(soname,srcfiles)
-    
+    # not finished ...
+
+def sdistname():
+    return 'hotsrc_H%s.%s.%s_%s.zip' % (os.getenv('HOUDINI_MAJOR_RELEASE'),
+                                        os.getenv('HOUDINI_MINOR_RELEASE'),
+                                        os.getenv('HOUDINI_BUILD_VERSION'),
+                                        release_version)
+@task
+def sdist():
+    """Make a source distribution."""
+    zipname = sdistname()
+    path(zipname).remove()
+    sh('hg archive -t zip %s' % zipname)
+
+def bdistname():
+    return 'hotbin_%s_H%s.%s.%s_%s' % (build_type,
+                                      os.getenv('HOUDINI_MAJOR_RELEASE'),
+                                      os.getenv('HOUDINI_MINOR_RELEASE'),
+                                      os.getenv('HOUDINI_BUILD_VERSION'),
+                                      release_version)
 @task
 def bdist():
     """makes a binary distribution of the plugins"""
-    path('hotdist').rmtree()
-    #call_task('build')
+
+    call_task('build')
+
     path('hotdist').makedirs()
 
     with pushd('hotdist'):
@@ -81,8 +113,8 @@ def bdist():
         path('otls').makedirs()
 
     # copy the dso's
-    for f in map(soname,srcfiles):
-        path(f).copy(path('hotdist/dso')/f)
+    for f in srcfiles:
+        path(f).copy(path('hotdist/dso')/soname(f))
 
     # copy in the Icons
     for f in path('.').files('*.png'):
@@ -108,13 +140,40 @@ def bdist():
         path('3rdparty/win64/libfftw3f-3.dll').copy(path('hotdist/dlls'))
 
     # finally move the directory to a representative name
-    distname = 'hotbin_%s_%s.%s.%s' % (build_type,
-                                    os.getenv('HOUDINI_MAJOR_RELEASE'),
-                                    os.getenv('HOUDINI_MINOR_RELEASE'),
-                                    os.getenv('HOUDINI_BUILD_VERSION'))
-    path(distname).rmtree()
-    path('hotdist').rename(distname)
-    
+    n = bdistname()
+    path(n).rmtree()
+    path('hotdist').rename(n)
+
+    # zip it up
+    zipname = '%s.zip' % n
+    path(zipname).remove()
+    zipper(n,n+'.zip')
+    path(n).rmtree()
+
+@task
+def upload_bdist():
+    """uploads the binary distribution to google code"""
+    zipname = '%s.zip' % bdistname()
+    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "binary distribution" -u Drew.Whitehouse %s' % zipname)
+
+@task
+def upload_sdist():
+    """uploads the source distribution to google code"""
+    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "source distribution" -u Drew.Whitehouse %s' % sdistname)
+
+@task
+def build_sop_cleave():
+    hcustom('SOP_Cleave.C')
+
+@task
+def build_sop_ocean():
+    hcustom('SOP_Ocean.C')
+    pass
+
+@task
+def build_vex_ocean():
+    hcustom('VEX_Ocean.C')
+
 def soname(srcfile):
     return srcfile[:-2]+soext
 
@@ -129,17 +188,13 @@ def hcustom(srcfile):
     assert path(oname(srcfile)).exists()
     assert path(soname(srcfile)).exists()
 
-@task
-def build_sop_cleave():
-    hcustom('SOP_Cleave.C')
 
-@task
-def build_sop_ocean():
-    hcustom('SOP_Ocean.C')
-    pass
-
-@task
-def build_vex_ocean():
-    hcustom('VEX_Ocean.C')
-    
-
+def zipper(dir, zip_file):
+    zip = zipfile.ZipFile(zip_file, 'w', compression=zipfile.ZIP_DEFLATED)
+    root_len = len(os.path.abspath(dir))
+    for root, dirs, files in os.walk(dir):
+        for f in files:
+            fullpath = os.path.join(root, f)
+            zip.write(fullpath, fullpath, zipfile.ZIP_DEFLATED)
+    zip.close()
+    return zip_file
