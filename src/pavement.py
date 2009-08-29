@@ -108,7 +108,10 @@ def bdist():
         path('3rdparty/win64/libfftw3f-3.dll').copy(path('hotdist/dlls'))
 
     # finally move the directory to a representative name
-    distname = 'hotbin_%s_%s.%s' % (build_type,os.getenv('HOUDINI_MAJOR_RELEASE'),os.getenv('HOUDINI_MINOR_RELEASE'))
+    distname = 'hotbin_%s_%s.%s.%s' % (build_type,
+                                    os.getenv('HOUDINI_MAJOR_RELEASE'),
+                                    os.getenv('HOUDINI_MAJOR_RELEASE'),
+                                    os.getenv('HOUDINI_BUILD_VERSION'))
     path(distname).rmtree()
     path('hotdist').rename(distname)
     
