@@ -110,7 +110,7 @@ def bdist():
     # finally move the directory to a representative name
     distname = 'hotbin_%s_%s.%s.%s' % (build_type,
                                     os.getenv('HOUDINI_MAJOR_RELEASE'),
-                                    os.getenv('HOUDINI_MAJOR_RELEASE'),
+                                    os.getenv('HOUDINI_MINOR_RELEASE'),
                                     os.getenv('HOUDINI_BUILD_VERSION'))
     path(distname).rmtree()
     path('hotdist').rename(distname)
