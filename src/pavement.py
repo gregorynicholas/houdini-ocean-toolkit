@@ -1,6 +1,7 @@
 #
-# build and deployment tools for the HOT
+# build and deployment tool for the HOT
 #
+
 from __future__ import with_statement
 import os,sys,platform,zipfile
 from paver.easy import *
@@ -9,6 +10,8 @@ from paver.setuputils import setup
 release_version = '1.0rc7'
 
 srcfiles = 'SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C'.split()
+
+# TODO: cleanup the problems with win32<->win64 selection 
 
 # work out what platform we're using
 if 'linux' in sys.platform:
@@ -27,7 +30,7 @@ elif sys.platform == 'darwin':
     includes='-I 3rdparty/osx/include -I 3rdparty/include'
     libs='-L 3rdparty/osx/lib -l blitz -l fftw3f'
 elif sys.platform == 'win32':
-    # how do we tell Win32 from Win64, maybe we'll need to force the use of hython ?
+    # how do we tell Win32 from Win64, should we force the use of hython for windows ?
     build_type = 'win64'
     soext = '.dll'
     oext = '.o'
@@ -35,13 +38,6 @@ elif sys.platform == 'win32':
     libs='-L 3rdparty/win64 -l blitz.lib -l libfftw3f-3.lib'
 else:
     RuntimeError('paver script has not been implemented for this architecture (%s)' % sys.platform)
-
-setup(
-    name='The Houdini Ocean Toolkit',
-    packages=[],
-    version=release_version,
-    author='Drew Whitehouse',
-    author_email='Drew.Whitehouse@anu.edu.au')
 
 @task
 def update_docs():
@@ -68,18 +64,17 @@ def clean():
 
 @task
 def build():
-    """builds the plugins inplace, ie doesn't install them"""
+    """builds the plugins inplace, doesn't install them"""
     call_task('clean')
     call_task('build_sop_cleave')
     call_task('build_sop_ocean')
     call_task('build_vex_ocean')
 
 def install():
-    """build and install the plugins"""
+    """installs the plugins, not completed"""
     sofiles = map(soname,srcfiles)
-    # not finished ...
 
-def sdistname():
+def szipname():
     return 'hotsrc_H%s.%s.%s_%s.zip' % (os.getenv('HOUDINI_MAJOR_RELEASE'),
                                         os.getenv('HOUDINI_MINOR_RELEASE'),
                                         os.getenv('HOUDINI_BUILD_VERSION'),
@@ -87,7 +82,7 @@ def sdistname():
 @task
 def sdist():
     """Make a source distribution."""
-    zipname = sdistname()
+    zipname = szipname()
     path(zipname).remove()
     sh('hg archive -t zip %s' % zipname)
 
@@ -134,8 +129,8 @@ def bdist():
 
     # if we are on windows, we need manifests and the fftw dll
     if sys.platform == 'win32':
-        for f in map(soname,srcfiles):
-            path(f).copy(path('hotdist/dso')/(f+'.manifest'))
+        for f in srcfiles:
+            path(f).copy(path('hotdist/dso')/(soname(f)+'.manifest'))
         path('hotdist/dlls').makedirs()
         path('3rdparty/win64/libfftw3f-3.dll').copy(path('hotdist/dlls'))
 
@@ -159,7 +154,7 @@ def upload_bdist():
 @task
 def upload_sdist():
     """uploads the source distribution to google code"""
-    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "source distribution" -u Drew.Whitehouse %s' % sdistname)
+    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "source distribution" -u Drew.Whitehouse %s' % szipname)
 
 @task
 def build_sop_cleave():
@@ -168,7 +163,6 @@ def build_sop_cleave():
 @task
 def build_sop_ocean():
     hcustom('SOP_Ocean.C')
-    pass
 
 @task
 def build_vex_ocean():
@@ -198,3 +192,11 @@ def zipper(dir, zip_file):
             zip.write(fullpath, fullpath, zipfile.ZIP_DEFLATED)
     zip.close()
     return zip_file
+
+setup(
+    name='The Houdini Ocean Toolkit',
+    packages=[],
+    version=release_version,
+    author='Drew Whitehouse',
+    author_email='Drew.Whitehouse@anu.edu.au')
+
