@@ -17,113 +17,106 @@ Tessendorf <http://www.finelightvisualtechnology.com/>`_ described in
 the `SIGGRAPH 2004 course notes
 <http://www.finelightvisualtechnology.com/pages/coursematerials.php/>`_. The
 dso's implement a SOP for displacing geometry and VEX functions
-functions for use in various Houdini contexts. The OTL contains a VOP
+for use in various Houdini contexts. The OTL contains a VOP
 that wraps the vex function. For the sake of convenience SOP_Cleave is
 also included in the HOT distribution (with Stuart Ramsden's blessing).
 
 Download
 --------
 
-*Important note - when installing a pre-built binary package you must
-use the matching version of houdini. The VEX dso has a better chance of
-working across versions, but it's still not recommended.*
+Source and binary distributions can be downloaded from the `houdini-ocean-toolkit repository on Google Code <http://code.google.com/p/houdini-ocean-toolkit/downloads>`_.
 
-All source and binary distributions can be downloaded from the `Google Code downloads <http://code.google.com/p/houdini-ocean-toolkit/downloads>`_
-.
+Note: the HOT binary distribution you install *must match your
+version of Houdini*. The VEX dso has a better chance of working across
+versions, but it's still not recommended.
 
-Latest Releases
-~~~~~~~~~~~~~~~
+Latest source from version control
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1.0rc7
+The latest pre-release version of code can be cloned from the `mercurial
+<http://www.selenic.com/mercurial/wiki/>`_ repository on Google Code. You will need
+to have mercurial installed on your machine, `see here for more <http://code.google.com/p/houdini-ocean-toolkit/source/checkout/>`_.
 
-  * finally osx and windows binary packages!
+Installation from a binary distribution
+---------------------------------------
 
-  * moved over to a python based cross platform build and packaging
-    system, uses the "paver" utility
+Unzip the binary distribution into a convenient folder.
 
-  * updated to fftw3.2.2
+Linux and OSX
 
-  * updated to the CVS version of blitz++ which includes re-entrancy
-    support for windows
+* Add the new directory to the HOUDINI_PATH in your .bashrc or .cshrc
+  according to which shell you use. So if you unzipped
+  hotbin_linux_H10.0.374.zip into the directory
+  /home/huser/stuff/hotbin_linux_H10.0.374 you would do the following - :: 
 
-1.0rc6
+    export HOUDINI_PATH="/home/huser/stuff/hotbin_linux_H10.0.374;&"
 
-* `HOT_src_1.0rc6.tar.gz
-  <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_1.0rc6.tar.gz>`_,
+Win32/Win64
 
-  - Fixed up Houdini 9x multithreading problems.
+* As for Linux and OSX you will need to set a HOUDINI_PATH environment
+  variable (right mouse and select My
+  Computer>Properties>Advanced>Environment Variables). You will also
+  need to put the dlls folder onto the PATH environment variable. So
+  if eg you unzipped hotbin_win32_H10.0.374.zip into
+  c:\\hotbin_win32_H10.0.374 you would set the following - ::
+  
+    HOUDINI_PATH c:/hotbin_win32_H10.0.374;&
+    PATH c:\hotbin_win32_H10.0.374\dlls
 
-  - The mantra displacement issue was fixed by rebuilding the example
-    hip file using Houdini 9x, something was lost in
-    translation. Thankyou to Side Effect support for help on this one.
+Note: Don't nuke your PATH if it already exists, prepend the above entry with a ";" between the entries.
 
-  - Building should be straight forward for linux and osx,
-    win32 may need some finetuning. 
+Building from source
+--------------------
 
-  - The docs have been updated using the python sphinx package. They
-    are now served via the web and are included in the doc
-    subdirectory of the distribution.
+Before building the HOT from source you *must* be able to successfully
+compile and install Houdini Development Kit (HDK)
+code. ``$HT/toolkit/samples/SOP/SOP_Star.C`` is a good one to try
+first. So before going any further try this - ::
 
-  - All 3rd party dependencies are included in the distribution.
+  hcustom SOP_Star.C
 
-  - Linux and osx dependencies are now linked statically, meaning less
-    installation hassles.
+For more information about using the HDK see the `odforce wiki HDK page
+<http://odforce.net/wiki/index.php/HDK>`_. 
 
-  - Moritz Moeller has ported the vex function to a RMan shadeop. The
-    source is included in src/misc. To use copy the code into the src
-    directory above and crank up cmake. Best place to get help for
-    this is on the forum.
+.. highlight:: bash
 
+The build script should produce a zipped up binary package ready for installation or distribution.
 
+Linux
 
-Latest source from Google Code
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* The linux build is quite straight forward, building all the
+  dependencies from source (included). To build, do the following in a
+  terminal - ::
 
-The HOT project is hosted on the Google code website as a `mercurial
-<http://www.selenic.com/mercurial/wiki/>`_ repository. You will need
-to have mercurial installed on your machine. Go to the `Houdini Ocean
-Toolkit <http://code.google.com/p/houdini-ocean-toolkit/>`_ page on
-Google code for information about how to download the latest source.
+    cd <where you put the HOT source>/src/3rdparty
+    ./build_linux.sh
+    # now would be a good time for a cuppa ...
+    cd ..
+     python setup.py bdist
+  
+OSX
 
-Examples
---------
+* The OSX build is quite straight forward, building all the dependencies
+  from source (included). You must have Apple's Xcode development
+  package installed. To build, do the following in a terminal - ::
 
-.. image:: ./HOT_sop_lg_nc.jpg
-   :align: center
+    cd <where you extracted the HOT source>/src/3rdparty
+    ./build_osx.sh
+    # now would be a good time for a latte ...
+    cd ..
+    python setup.py bdist
 
-The simplest example (simple.hip) - the Ocean SOP with a lowres
-geometry (50m x 50m and 64 rows and columns) and no chop. This
-animates in near real time.
+Win32 and Win64
 
-.. image:: HOT_sop_hg_c.jpg
-   :align: center
+* You must have VisualStudio 2005 installed and be able to use hcustom
+  on houdini terminal to compile examples like SOP_Star.C in the
+  $HT/samples/sop folder - ::
+  
+    cd <where you extracted the HOT source>/src
+    hython setup.py bdist
 
-Using simple.hip crank up the grid to 200 rows and columns, toggle
-chop and play around with the chop amount and wave height parameters
-to get this surface. Things slow down a bit.
+* Note: we use hython here instead of python.
 
-.. image:: HOT_sop_hg_c_shader.jpg
-   :align: center
-
-Adding a surface shader that uses fresnel reflections and an environment map, things begin to look a bit more realistic.
-
-.. image:: HOT_vexdisp_500m.jpg
-   :align: center
-
-Here we render a 10km square composed of 4 polygons with a vex
-displacement shader that calls ocean_eval(). The size of the ocean
-tile is 500m, rendered with the ocean "res" setting = 10. (obvious
-problem here with the reflections, it will be fixed when we get a
-problem with re-uploading image files fixed.)
-
-.. image:: HOT_mineig.jpg
-   :align: center
-
-The crests of the choppy waves are being colored by choosing the areas
-where the sign of the mininum eigenvalue (ME) is negative, and adding
-some color made from the negated ME multiplied by some noise. More
-sophisticated foam and spray can be driven with the minimal eigenvalue
-and eigenvector.
 
 Usage
 -----
@@ -132,7 +125,7 @@ Ocean SOP
 ~~~~~~~~~
  
 The Ocean SOP is a filter sop that displaces points in the up/y
-direction . See the **simple.hip** example included in the
+direction. See the **sop_simple.hip** example included in the
 distribution and play with the parameters to get a feel for how the
 SOP works. Note that the sop will calculate accurate normals if it is
 fed a geometry that has a normal attribute on points.
@@ -310,81 +303,55 @@ out the various quantities as images. i and j simply index into the
 arrays that are interpolated in ocean_eval(). The image dimension is
 2^gridres.
 
-VOP shaders for basic ocean surfaces
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example Files
+-------------
 
-See the OTL directory for examples of VOP usage.
+The following example files are included in the distribution -
 
-Building from source
---------------------
+* sop_simple.hip - illustrates the basic principles, start with this one.
 
-Before building the HOT from source you *must* be able to successfully
-compile and install Houdini Development Kit (HDK)
-code. ``$HT/toolkit/samples/SOP/SOP_Star.C`` is a good one to try
-first. So before going any further try this - ::
+* sop_flotsam.hip - an example of floating other objects on the ocean surface.
 
-  cd <a temporary directory somewhere>
-  cp $HT/toolkit/samples/SOP/SOP_Star.C .
-  hcustom SOP_Star.C
+* vop_displace.hip - a displacement shader.
 
-For more information about using the HDK see the `odforce wiki HDK page
-<http://odforce.net/wiki/index.php/HDK>`_. 
+* vopsop_two_sources.hip - uses VOPSOP context to displace a surface using two ocean sources to reduce repetition.
 
-.. highlight:: bash
+* vopsop_foamparts.hip - shows how you might go about using the minimum eigenvalue attribute to produce foam and particle spray.
 
+.. image:: ./HOT_sop_lg_nc.jpg
+   :align: center
 
-Linux
-~~~~~
+The simplest example (see sop_simple.hip) - the Ocean SOP with a lowres
+geometry (50m x 50m and 64 rows and columns) and no chop. This
+animates in near real time.
 
-The linux build is quite straight forward, building all the
-dependencies from source (included). To build, do the following in a
-terminal - ::
+.. image:: HOT_sop_hg_c.jpg
+   :align: center
 
-  cd <where you put the HOT source>/src/3rdparty
-  ./build_linux.sh
-  # now would be a good time for a cuppa ...
-  cd ..
-  ./compile_linux.sh
+Using sop_simple.hip crank up the grid to 200 rows and columns, toggle
+chop and play around with the chop amount and wave height parameters
+to get this surface. Things slow down a bit.
 
-Alternatively instead of compile_linux.sh you can - ::
+.. image:: HOT_sop_hg_c_shader.jpg
+   :align: center
 
-  make 
-  make install
+Adding a surface shader that uses fresnel reflections and an environment map, things begin to look a bit more realistic.
 
-OSX
-~~~
+.. image:: HOT_vexdisp_500m.jpg
+   :align: center
 
-The OSX build is quite straight forward, building all the dependencies
-from source (included). You must have Apple's Xcode development
-package installed. To build, do the following in a terminal - ::
+Here we render a 10km square composed of 4 polygons with a vex
+displacement shader that calls ocean_eval(). The size of the ocean
+tile is 500m, rendered with the ocean "res" setting = 10. 
 
-  cd <where you extracted the HOT source>/src/3rdparty
-  ./build_osx.sh
-  # now would be a good time for a latte ...
-  cd ..
-  ./compile_osx.sh
+.. image:: HOT_mineig.jpg
+   :align: center
 
-Win32
-~~~~~
-
-I'm assuming you're using cygwin and bash under windows. I'm also assuming you
-have VisualStudio.NET to match your version of houdini. You should be setup to
-run "hcompile" from the cygwin command line. ::
-
-  cd <where you extracted the HOT source>/src/
-  ./compile_win32.sh
-
-Win64
-~~~~~
-
-I'm assuming you're using cygwin and bash under windows. I'm also assuming you
-have install VisualStudio.NET to match your version of houdini. You should be setup to
-run "hcompile" from the cygwin command line. ::
-
-  cd <where you extracted the HOT source>/src/
-  ./compile_win64.sh
-
-*Warning: win64 currently not tested, probably not working*
+The crests of the choppy waves are being colored by choosing the areas
+where the sign of the mininum eigenvalue (ME) is negative, and adding
+some color made from the negated ME multiplied by some noise. More
+sophisticated foam and spray can be driven with the minimal eigenvalue
+and eigenvector.
 
 HOT sightings
 -------------
@@ -417,54 +384,49 @@ Support and Community
 ---------------------
 
 Send any questions and feedback to the `Houdini Ocean Toolkit
-od[forum] <http://forums.odforce.net/index.php?showforum=57>`_. If
-this doesn't bring enlightement, mail the author directly
-(Drew.Whitehouse@anu.edu.au).
+od[forum] <http://forums.odforce.net/index.php?showforum=57>`_.
 
 Version History
 ---------------
 
-Community builds
-~~~~~~~~~~~~~~~~
+* 1.0rc7
 
-If you've compiled a version of HOT for a different configuration, put
-it on the web somewhere and make a link to it on the `odWiki page
-<http://odforce.net/wiki/index.php/HoudiniOceanToolkit>`_ (and
-thanks!).
+  - finally osx and windows binary packages!
 
-Legacy Builds
-~~~~~~~~~~~~~
+  - moved over to a python based cross platform build and packaging
+    system, uses the "paver" utility
 
-* source code `HOT_src_v0.9.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_v0.9.zip>`_
-* source code `HOT_src_v0.8.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_v0.8.zip>`_
-* win32 binary  - `HOT_8.2.13_0.9_win32 <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_2_13_0.9_win32.zip>`_
-* win32 binary  - `HOT_8.1.704_0.9_win32 <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_1_704_0.9_win32.zip>`_
-* win32 binary  - `HOT_8_1_704_0.8_win32 <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_1_704_0.8_win32.zip>`_ (*)
-* win32 binary  - `HOT_8_1_666_0.8_win32 <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_1_666_0.8_win32.zip>`_ (*)
-* win32 binary - `HOT_8_1_655_0.8_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_1_655_0.8_win32.zip>`_ (*)
-* win32 binary  - `HOT_7_0_534_0.8_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_7_0_534_0.8_win32.zip>`_
-* win32 binary  - `HOT_8_0_474_0.8_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_474_0.8_win32.zip>`_
-* win32 binary  - `HOT_8_0_410_0.8_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_410_0.8_win32.zip>`_
-* linux rhel4 H8 binary - `HOT_8_1_704_0.8_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_1_704_0.8_rhel4.tar.gz>`_  (*)
-* linux rhel4 H8 binary - `HOT_8_1_655_0.8_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_1_655_0.8_rhel4.tar.gz>`_  (*)
-* linux rhel4 H8 binary - `HOT_8_0_474_0.8_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_474_0.8_rhel4.tar.gz>`_
-* win32 binary  - `HOT_7_0_534_0.07_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_7_0_534_0.07_win32.zip>`_
-* win32 binary  - `HOT_7_0_505_0.07_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_7_0_505_0.07_win32.zip>`_
-* win32 binary  - `HOT_8_0_383_0.07_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_383_0.07_win32.zip>`_
-* linux rhel4 H7 binary (houdini 7.0.515) - `HOT_7_0_515_0.07_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_7_0_515_0.07_rhel4.tar.gz>`_
-* linux rhel4 H8 binary (houdini 8.0.383) - `HOT_8_0_383_0.07_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_383_0.07_rhel4.tar.gz>`_
-* linux rhel4 H8 binary (houdini 8.0.335) - `HOT_8_0_335_0.07_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_335_0.07_rhel4.tar.gz>`_
-* source code `HOT_src_alpha_v0.07.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_src_alpha_v0.07.zip>`_
-* win32 binary  - `HOT_7_0_534_0.06_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_7_0_534_0.06_win32.zip>`_
-* win32 binary  - `HOT_7_0_505_0.06_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_7_0_505_0.06_win32.zip>`_
-* win32 binary  - `HOT_8_0_353_0.06_win32.zip <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_353_0.06_win32.zip>`_
-* linux rhel4 H7 binary (houdini 7.0.515) - `HOT_7_0_515_0.06_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_7_0_515_0.06_rhel4.tar.gz>`_
-* linux rhel4 H8 binary (houdini 8.0.335) - `HOT_8_0_335_0.06_rhel4.tar.gz <http://anusf.anu.edu.au/~drw900/houdini/ocean/HOT_8_0_335_0.06_rhel4.tar.gz>`_
+  - updated to fftw3.2.2
 
-(*) - the cleave SOP has a mild problem in the 8.1 build
+  - updated to the CVS version of blitz++ which includes reentrancy
+    support for windows
 
-Legacy Release Notes
-~~~~~~~~~~~~~~~~~~~~
+* 1.0rc6
+
+  - Fixed up Houdini 9x multithreading problems.
+
+  - The mantra displacement issue was fixed by rebuilding the example
+    hip file using Houdini 9x, something was lost in
+    translation. Thankyou to Side Effect support for help on this one.
+
+  - Building should be straight forward for linux and osx,
+    win32 may need some finetuning. 
+
+  - The docs have been updated using the python sphinx package. They
+    are now served via the web and are included in the doc
+    subdirectory of the distribution.
+
+  - All 3rd party dependencies are included in the distribution.
+
+  - Linux and osx dependencies are now linked statically, meaning less
+    installation hassles.
+
+  - Moritz Moeller has ported the vex function to a RMan shadeop. The
+    source is included in src/misc. To use copy the code into the src
+    directory above and crank up cmake. Best place to get help for
+    this is on the forum.
+
+
 
 * 1.0rc4 - Src only now, though it has now been compiled on linux,
   win32 and OSX. There is a problem with mantra displacement shading,

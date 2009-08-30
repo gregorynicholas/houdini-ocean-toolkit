@@ -42,9 +42,9 @@ else:
 @task
 def update_docs():
     """makes the html docs and pushes them to the web site"""
-    with pushd(path('docs')):
+    with pushd(path('../docs')):
         sh('make html')
-    sh('scp -r docs/_build/* sf:public_html/houdini/ocean/docs')
+    sh('scp -r ../docs/_build/* sf:public_html/houdini/ocean/docs')
 
 @task
 def clean():
