@@ -56,9 +56,9 @@ Win32/Win64
 * As for Linux and OSX you will need to set a HOUDINI_PATH environment
   variable (right mouse and select My
   Computer>Properties>Advanced>Environment Variables). You will also
-  need to put the dlls folder onto the PATH environment variable. So
-  if eg you unzipped hotbin_win32_H10.0.374.zip into
-  c:\\hotbin_win32_H10.0.374 you would set the following - ::
+  need to put the dlls folder onto the PATH environment
+  variable. E.g. if you unzipped hotbin_win32_H10.0.374.zip into
+  c:\\hotbin_win32_H10.0.374 you would set the following variables - ::
   
     HOUDINI_PATH c:/hotbin_win32_H10.0.374;&
     PATH c:\hotbin_win32_H10.0.374\dlls
@@ -71,7 +71,7 @@ Building from source
 Before building the HOT from source you *must* be able to successfully
 compile and install Houdini Development Kit (HDK)
 code. ``$HT/toolkit/samples/SOP/SOP_Star.C`` is a good one to try
-first. So before going any further try this - ::
+first. So before going any further try compiling the SOP_Star example with hcustom - ::
 
   hcustom SOP_Star.C
 
@@ -108,15 +108,34 @@ OSX
 
 Win32 and Win64
 
+.. highlight:: bat
+
 * You must have VisualStudio 2005 installed and be able to use hcustom
   on houdini terminal to compile examples like SOP_Star.C in the
-  $HT/samples/sop folder - ::
-  
-    cd <where you extracted the HOT source>/src
-    hython setup.py bdist
+  $HT/samples/sop folder. We use hython here instead of python to pick
+  up the right Windows architecture (32 or 64). - ::
 
-* Note: we use hython here instead of python.
+    > chdir <where you extracted the HOT source distribution>\\src
+    > hython setup.py bdist
 
+* My recipe for setting up Houdini and VisualStudio, you don't
+  strictly need to have folders without spaces, it just makes life
+  easier!
+
+   - custom install Houdini into a folder without spaces eg c:\\apps\\Houdini_10.0.374
+   - custom install VisualStudio 2005 into c:\\apps\\VS8 (remember to select the extra 64 bit
+     option for VC++ if you are compiling for win64)
+   - then in a houdini terminal - ::
+
+     > set MSVCDir=C:\apps\VS8\VC
+     > %MSVCDir%\vcvarsall.bat
+     > rem or use the following instead for compiling 64 dll's
+     > rem %MSVCDir%\vcvarsall.bat x64
+     > chdir \apps\Houdini_10.0.374\toolkit\samples\SOP
+     > hcustom SOP_Star.C
+
+   - you should make a batch script to automate some of the above, or
+     at least set MSVCDir as an environment variable
 
 Usage
 -----
@@ -390,6 +409,9 @@ Version History
 ---------------
 
 * 1.0rc7
+
+  - updated the documention with new build and install information
+    (still more work needed here)
 
   - finally osx and windows binary packages!
 
