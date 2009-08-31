@@ -164,7 +164,7 @@ def upload_bdist():
 @task
 def upload_sdist():
     """uploads the source distribution to google code"""
-    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "source distribution" -u Drew.Whitehouse %s' % szipname)
+    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "source distribution" -u Drew.Whitehouse %s' % szipname())
 
 @task
 def build_sop_cleave():
