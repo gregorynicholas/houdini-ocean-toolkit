@@ -11,10 +11,8 @@ release_version = '1.0rc7'
 
 srcfiles = 'SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C'.split()
 
-# TODO: cleanup the problems with win32<->win64 selection 
-
 # work out what platform we're using
-if 'linux' in sys.platform:
+if platform.system() == 'Linux':
     if platform.machine()=='x86_64':
         build_type = 'linux64'
     else:
@@ -23,19 +21,21 @@ if 'linux' in sys.platform:
     oext = '.o'
     includes='-I 3rdparty/linux/include -I 3rdparty/include'
     libs='-L 3rdparty/linux/lib -l blitz -l fftw3f'
-elif sys.platform == 'darwin':
+elif platform.system() == 'Darwin':
     build_type = 'osx'
     soext = '.dylib'
     oext = '.o'
     includes='-I 3rdparty/osx/include -I 3rdparty/include'
     libs='-L 3rdparty/osx/lib -l blitz -l fftw3f'
-elif sys.platform == 'win32':
-    # how do we tell Win32 from Win64, should we force the use of hython for windows ?
-    build_type = 'win64'
+elif platform.system() == 'Windows':
+    if platform.architecture()[0] == '64bit':
+        build_type = 'win64'
+    else:
+        build_type = 'win32'
     soext = '.dll'
     oext = '.o'
-    includes='-I 3rdparty/win64 -I 3rdparty/include'
-    libs='-L 3rdparty/win64 -l blitz.lib -l libfftw3f-3.lib'
+    includes='-I 3rdparty/%s -I 3rdparty/include' % build_type
+    libs='-L 3rdparty/%s -l blitz.lib -l libfftw3f-3.lib' % build_type
 else:
     RuntimeError('paver script has not been implemented for this architecture (%s)' % sys.platform)
 
@@ -48,9 +48,16 @@ def update_docs():
 
 @task
 def clean():
+    """remove the build files"""
     for f in srcfiles:
         path(soname(f)).remove()
         path(oname(f)).remove()
+    if 'win' in build_type:
+        for f in srcfiles:
+            path(soname(f)+'.manifest').remove()
+            path(f[:-2]+'.exp').remove()
+            path(f[:-2]+'.lib').remove()
+
     for p in path('.').glob('hotbin_*'):
         if p.isdir():
             p.rmtree()
@@ -81,7 +88,7 @@ def szipname():
                                         release_version)
 @task
 def sdist():
-    """Make a source distribution."""
+    """make a source distribution"""
     zipname = szipname()
     path(zipname).remove()
     sh('hg archive -t zip %s' % zipname)
@@ -93,11 +100,14 @@ def bdistname():
                                       os.getenv('HOUDINI_BUILD_VERSION'),
                                       release_version)
 @task
-def bdist():
+@cmdopts([('norebuild','n','don\'t rebuild the targets')])
+def bdist(options):
     """makes a binary distribution of the plugins"""
 
-    call_task('build')
+    if 'norebuild' not in options.bdist:
+        call_task('build')
 
+    path('hotdist').rmtree()
     path('hotdist').makedirs()
 
     with pushd('hotdist'):
@@ -128,11 +138,11 @@ def bdist():
     path('../examples').copytree('hotdist/examples')
 
     # if we are on windows, we need manifests and the fftw dll
-    if sys.platform == 'win32':
+    if build_type == 'win32' or build_type == 'win64':
         for f in srcfiles:
             path(f).copy(path('hotdist/dso')/(soname(f)+'.manifest'))
         path('hotdist/dlls').makedirs()
-        path('3rdparty/win64/libfftw3f-3.dll').copy(path('hotdist/dlls'))
+        path('3rdparty/%s/libfftw3f-3.dll' % build_type).copy(path('hotdist/dlls'))
 
     # finally move the directory to a representative name
     n = bdistname()
