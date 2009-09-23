@@ -82,7 +82,7 @@ def install():
     sofiles = map(soname,srcfiles)
 
 def szipname():
-    return 'hotsrc_%s.zip' % release_version)
+    return 'hotsrc_%s.zip' % release_version
 
 @task
 def sdist():
