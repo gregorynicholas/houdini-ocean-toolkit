@@ -119,7 +119,7 @@ def bdist(options):
 
     # copy the dso's
     for f in srcfiles:
-        path(f).copy(path('hotdist/dso')/soname(f))
+        path(soname(f)).copy(path('hotdist/dso')/soname(f))
 
     # copy in the Icons
     for f in path('.').files('*.png'):
