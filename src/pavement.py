@@ -140,7 +140,8 @@ def bdist(options):
     # if we are on windows, we need manifests and the fftw dll
     if build_type == 'win32' or build_type == 'win64':
         for f in srcfiles:
-            path(f).copy(path('hotdist/dso')/(soname(f)+'.manifest'))
+            name = soname(f)+'.manifest'
+            path(name).copy(path('hotdist/dso')/name)
         path('hotdist/dlls').makedirs()
         path('3rdparty/%s/libfftw3f-3.dll' % build_type).copy(path('hotdist/dlls'))
 
