@@ -408,6 +408,11 @@ od[forum] <http://forums.odforce.net/index.php?showforum=57>`_.
 Version History
 ---------------
 
+* 1.0rc8
+
+  - the pavement script was copying the wrong files for installation
+    so the hotbin_***.zip files were incorrect
+
 * 1.0rc7
 
   - updated the documention with new build and install information

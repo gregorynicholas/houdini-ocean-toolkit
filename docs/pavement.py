@@ -11,9 +11,8 @@ try:
     @task
     def update_docs():
         """makes the html docs and pushes them to the web site"""
-        with pushd(path('docs')):
-            sh('make html')
-        sh('scp -r docs/_build/html/* sf:public_html/houdini/ocean/docs')
+        sh('make html')
+        sh('scp -r _build/html/* sf:public_html/houdini/ocean/docs')
 except ImportError:
     pass
 
