@@ -7,7 +7,7 @@ import os,sys,platform,zipfile
 from paver.easy import *
 from paver.setuputils import setup
 
-release_version = '1.0rc7'
+release_version = '1.0rc8'
 
 srcfiles = 'SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C'.split()
 
@@ -82,10 +82,8 @@ def install():
     sofiles = map(soname,srcfiles)
 
 def szipname():
-    return 'hotsrc_H%s.%s.%s_%s.zip' % (os.getenv('HOUDINI_MAJOR_RELEASE'),
-                                        os.getenv('HOUDINI_MINOR_RELEASE'),
-                                        os.getenv('HOUDINI_BUILD_VERSION'),
-                                        release_version)
+    return 'hotsrc_%s.zip' % release_version)
+
 @task
 def sdist():
     """make a source distribution"""
