@@ -44,6 +44,9 @@
 #include <PRM/PRM_Include.h>
 #include <OP/OP_Operator.h>
 #include <OP/OP_OperatorTable.h>
+
+#include <GB/GB_AttributeRef.h> 
+
 //#include <SOP/SOP_Guide.h>
 #include <tools/tools.h>
 #include "SOP_Cleave.h"
@@ -245,8 +248,8 @@ SOP_Cleave::cookMySop(OP_Context &context)
 
     // create rest pos attribute
     float zeros[3] = {1,1,1};
-    int cleave_rest_pos = gdp->addPointAttrib("CleaveRestPos", sizeof(float)*3,
-                                              GB_ATTRIB_FLOAT, (void *)zeros);
+    GB_AttributeRef cleave_rest_pos = gdp->addPointAttrib("CleaveRestPos", sizeof(float)*3,
+                                                           GB_ATTRIB_FLOAT, (void *)zeros);
 
     // Pointer to the color data
     float* rpos = 0;
