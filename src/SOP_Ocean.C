@@ -46,6 +46,7 @@
 #include <OP/OP_Operator.h>
 #include <OP/OP_OperatorTable.h>                                            
 #include <GU/GU_PrimPart.h>
+#include <GB/GB_AttributeRef.h>
 
 // --------------------------------- SOP paramaters --------------------------------------------
 
@@ -278,9 +279,9 @@ SOP_Ocean::cookMySop(OP_Context &context)
 
 
         // get our attribute indices
-        int normal_index;
-        int jminus_index;
-        int eminus_index;
+        GB_AttributeRef normal_index;
+        GB_AttributeRef jminus_index;
+        GB_AttributeRef eminus_index;
 
         if (do_normals)
         {
