@@ -21,12 +21,14 @@ if platform.system() == 'Linux':
     oext = '.o'
     includes='-I 3rdparty/linux/include -I 3rdparty/include'
     libs='-L 3rdparty/linux/lib -l blitz -l fftw3f'
+    python_exe = 'python'
 elif platform.system() == 'Darwin':
     build_type = 'osx'
     soext = '.dylib'
     oext = '.o'
     includes='-I 3rdparty/osx/include -I 3rdparty/include'
     libs='-L 3rdparty/osx/lib -l blitz -l fftw3f'
+    python_exe = 'python'
 elif platform.system() == 'Windows':
     if platform.architecture()[0] == '64bit':
         build_type = 'win64'
@@ -36,6 +38,7 @@ elif platform.system() == 'Windows':
     oext = '.o'
     includes='-I 3rdparty/%s -I 3rdparty/include' % build_type
     libs='-L 3rdparty/%s -l blitz.lib -l libfftw3f-3.lib' % build_type
+    python_exe = 'hython'
 else:
     RuntimeError('paver script has not been implemented for this architecture (%s)' % sys.platform)
 
@@ -158,12 +161,12 @@ def bdist(options):
 def upload_bdist():
     """uploads the binary distribution to google code"""
     zipname = '%s.zip' % bdistname()
-    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "binary distribution" -u Drew.Whitehouse %s' % zipname)
+    sh('%s ../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "binary distribution" -u Drew.Whitehouse %s' % (python_exe,zipname))
 
 @task
 def upload_sdist():
     """uploads the source distribution to google code"""
-    sh('../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "source distribution" -u Drew.Whitehouse %s' % szipname())
+    sh('%s ../scripts/googlecode_upload.py -p houdini-ocean-toolkit -s "source distribution" -u Drew.Whitehouse %s' % (python_exe,szipname()))
 
 @task
 def build_sop_cleave():
