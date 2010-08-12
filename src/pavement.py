@@ -7,7 +7,7 @@ import os,sys,platform,zipfile
 from paver.easy import *
 from paver.setuputils import setup
 
-release_version = '1.0rc8'
+release_version = '1.0rc9'
 
 srcfiles = 'SOP_Cleave.C SOP_Ocean.C VEX_Ocean.C'.split()
 
